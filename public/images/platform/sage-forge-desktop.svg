@@ -1,0 +1,65 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#0f172a"/>
+  
+  <!-- Window frame -->
+  <rect width="800" height="40" fill="#1e293b"/>
+  
+  <!-- Window controls -->
+  <circle cx="20" cy="20" r="8" fill="#ef4444"/>
+  <circle cx="45" cy="20" r="8" fill="#f59e0b"/>
+  <circle cx="70" cy="20" r="8" fill="#10b981"/>
+  
+  <!-- Title -->
+  <text x="100" y="25" font-family="Arial, sans-serif" font-size="14" fill="white">Sage Forge - Node Execution Environment</text>
+  
+  <!-- Sidebar -->
+  <rect x="0" y="40" width="200" height="560" fill="#1e293b"/>
+  
+  <!-- Sidebar items -->
+  <rect x="10" y="60" width="180" height="35" rx="6" fill="#10b981"/>
+  <text x="20" y="82" font-family="Arial, sans-serif" font-size="14" fill="white">Active Jobs</text>
+  <text x="20" y="122" font-family="Arial, sans-serif" font-size="14" fill="#64748b">GPU Status</text>
+  <text x="20" y="162" font-family="Arial, sans-serif" font-size="14" fill="#64748b">Containers</text>
+  <text x="20" y="202" font-family="Arial, sans-serif" font-size="14" fill="#64748b">Logs</text>
+  <text x="20" y="242" font-family="Arial, sans-serif" font-size="14" fill="#64748b">Settings</text>
+  
+  <!-- Main content -->
+  <rect x="200" y="40" width="600" height="560" fill="#0f172a"/>
+  
+  <!-- Terminal -->
+  <rect x="220" y="60" width="560" height="300" rx="8" fill="#1e293b"/>
+  <text x="240" y="85" font-family="Monaco, monospace" font-size="12" fill="#10b981">$ sage-forge status</text>
+  <text x="240" y="105" font-family="Monaco, monospace" font-size="12" fill="#10b981">Node ID: sage-node-7f3a2b1c</text>
+  <text x="240" y="125" font-family="Monaco, monospace" font-size="12" fill="#10b981">GPU: NVIDIA H100 (80GB)</text>
+  <text x="240" y="145" font-family="Monaco, monospace" font-size="12" fill="#10b981">Status: ACTIVE</text>
+  <text x="240" y="165" font-family="Monaco, monospace" font-size="12" fill="#10b981">Current Job: render-job-1234</text>
+  <text x="240" y="185" font-family="Monaco, monospace" font-size="12" fill="#10b981">├── Container: blender:3.6-cuda</text>
+  <text x="240" y="205" font-family="Monaco, monospace" font-size="12" fill="#10b981">├── Memory: 45.2GB / 80GB</text>
+  <text x="240" y="225" font-family="Monaco, monospace" font-size="12" fill="#10b981">├── GPU Util: 87%</text>
+  <text x="240" y="245" font-family="Monaco, monospace" font-size="12" fill="#10b981">└── ETA: 12m 34s</text>
+  <text x="240" y="285" font-family="Monaco, monospace" font-size="12" fill="#10b981">Proof Generation: IN_PROGRESS</text>
+  <text x="240" y="305" font-family="Monaco, monospace" font-size="12" fill="#10b981">ZK Circuit: Compiling...</text>
+  <text x="240" y="325" font-family="Monaco, monospace" font-size="12" fill="#10b981">Verification: PENDING</text>
+  
+  <!-- GPU monitoring -->
+  <rect x="220" y="380" width="560" height="200" rx="8" fill="#1e293b"/>
+  <text x="240" y="405" font-family="Arial, sans-serif" font-size="14" fill="#64748b">GPU Utilization</text>
+  
+  <!-- Simple chart -->
+  <polyline points="240,550 260,520 280,530 300,510 320,525 340,505 360,515 380,495 400,510 420,490 440,500 460,480 480,495 500,475 520,485 540,465 560,480 580,460 600,470 620,450 640,465 660,445 680,455" 
+            fill="none" stroke="#10b981" stroke-width="2"/>
+  
+  <!-- Container status -->
+  <rect x="500" y="400" width="260" height="160" rx="6" fill="#0f172a" stroke="#374151"/>
+  <text x="520" y="425" font-family="Arial, sans-serif" font-size="14" fill="#e5e7eb">Container Status</text>
+  <circle cx="530" cy="445" r="4" fill="#10b981"/>
+  <text x="545" y="450" font-family="Arial, sans-serif" font-size="12" fill="#10b981">blender:3.6-cuda</text>
+  <circle cx="530" cy="465" r="4" fill="#10b981"/>
+  <text x="545" y="470" font-family="Arial, sans-serif" font-size="12" fill="#10b981">pytorch:2.1-cuda</text>
+  <circle cx="530" cy="485" r="4" fill="#6b7280"/>
+  <text x="545" y="490" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">tensorflow:2.14 (idle)</text>
+  
+  <text x="520" y="520" font-family="Arial, sans-serif" font-size="12" fill="#64748b">Memory: 45.2GB / 80GB</text>
+  <text x="520" y="540" font-family="Arial, sans-serif" font-size="12" fill="#64748b">Network: 2.4 GB/s</text>
+</svg>

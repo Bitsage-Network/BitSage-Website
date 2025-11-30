@@ -1,0 +1,95 @@
+{
+  "name": "bitsage-website",
+  "version": "1.0.0",
+  "description": "BitSage Network - The Future of Verifiable Computing",
+  "private": true,
+  "homepage": "https://bitsage.network",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Bitsage-Network/bitsage-website.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Bitsage-Network/bitsage-website/issues"
+  },
+  "author": "BitSage Network <team@bitsage.network>",
+  "license": "MIT",
+  "keywords": [
+    "bitsage",
+    "decentralized",
+    "gpu-compute",
+    "verifiable-computing",
+    "blockchain",
+    "ai",
+    "rendering",
+    "nextjs",
+    "typescript"
+  ],
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf .next out",
+    "analyze": "ANALYZE=true npm run build"
+  },
+  "dependencies": {
+    "@headlessui/react": "^2.2.0",
+    "@heroicons/react": "^2.2.0",
+    "@next/bundle-analyzer": "^15.5.4",
+    "@radix-ui/react-dialog": "^1.1.2",
+    "@radix-ui/react-dropdown-menu": "^2.1.2",
+    "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-toast": "^1.2.2",
+    "@radix-ui/react-tooltip": "^1.1.3",
+    "@react-three/drei": "^9.117.3",
+    "@react-three/fiber": "^8.17.10",
+    "@types/three": "^0.169.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.15.0",
+    "katex": "^0.16.11",
+    "lucide-react": "^0.460.0",
+    "mermaid": "^11.12.0",
+    "next": "15.5.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-intersection-observer": "^9.16.0",
+    "react-katex": "^3.0.1",
+    "tailwind-merge": "^2.5.4",
+    "tailwindcss-animate": "^1.0.7",
+    "three": "^0.170.0",
+    "zustand": "^5.0.2"
+  },
+  "devDependencies": {
+    "@types/katex": "^0.16.7",
+    "@types/node": "^22.10.1",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@typescript-eslint/eslint-plugin": "^8.17.0",
+    "@typescript-eslint/parser": "^8.17.0",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.16.0",
+    "eslint-config-next": "15.5.4",
+    "postcss": "^8.5.1",
+    "tailwindcss": "^3.4.18",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
