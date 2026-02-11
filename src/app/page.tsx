@@ -5,6 +5,7 @@ import { CodeExamples } from '@/components/CodeExamples';
 import { PlatformFeatures } from '@/components/PlatformFeatures';
 import { ActiveMarketplace } from '@/components/ActiveMarketplace';
 import { CategorySections } from '@/components/CategorySections';
+import { StwoMlShowcase } from '@/components/StwoMlShowcase';
 import { SageShowcase } from '@/components/SageShowcase';
 import { CTASection } from '@/components/CTASection';
 import { CommunitySection } from '@/components/CommunitySection';
@@ -24,6 +25,7 @@ export default function Home() {
       {/* Original sections */}
       <ActiveMarketplace />
       <CategorySections />
+      <StwoMlShowcase />
       <SageShowcase />
       <CTASection />
       <CommunitySection />
