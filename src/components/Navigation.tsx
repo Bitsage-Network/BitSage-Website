@@ -1,43 +1,49 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, User, X, ChevronDown, FileText, Code, Server, Shield, Users, Building2, Zap, Database, Network, Settings, BookOpen, Phone, Globe } from 'lucide-react';
+import { Menu, X, ChevronDown, FileText, Code, Server, Shield, Users, Building2, Zap, Database, Network, Settings, BookOpen, Phone, Globe, Lock, Wallet, ExternalLink, Sparkles, Cpu } from 'lucide-react';
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 const menuItems = [
   {
-    label: 'Platform',
+    label: 'Products',
     megaMenu: true,
     sections: [
       {
-        title: 'Core Architecture',
-        description: 'Verifiable compute infrastructure',
+        title: 'Enterprise Platform',
+        description: 'Production-ready GPU compute',
         items: [
-          { label: 'Sage Cloud', href: '/platform#sage-cloud', description: 'Web & API entry point for jobs', icon: Globe },
-          { label: 'Sage Mesh', href: '/platform#sage-mesh', description: 'Global P2P network fabric', icon: Network },
-          { label: 'Sage Forge', href: '/platform#sage-forge', description: 'Node execution environment', icon: Server },
-          { label: 'Sage Proof', href: '/platform#sage-proof', description: 'ZK verification system', icon: Shield },
+          { label: 'Marketplace', href: 'https://marketplace.bitsage.network', description: 'Enterprise GPU marketplace', icon: Globe, external: true, badge: 'Enterprise' },
+          { label: 'AI Inference', href: '/ai-inference', description: 'Run models at scale', icon: Zap },
+          { label: 'Batch Compute', href: '/batch-compute', description: 'Rendering & processing', icon: Database },
         ],
       },
       {
-        title: 'Enterprise Solutions',
-        description: 'Production-ready compute',
+        title: 'Validator Network',
+        description: 'Earn by providing compute',
         items: [
-          { label: 'AI Training & Inference', href: '/platform#ai-compute', description: 'Scalable ML workloads', icon: Zap },
-          { label: 'Rendering Pipeline', href: '/platform#rendering', description: '3D & VFX processing', icon: Settings },
-          { label: 'Batch Processing', href: '/platform#batch', description: 'Parallel job execution', icon: Database },
-          { label: 'Custom Integrations', href: '/platform#integrations', description: 'Enterprise API access', icon: Code },
+          { label: 'Validator Portal', href: 'https://validators.bitsage.network', description: 'Full DEGEN mode', icon: Server, external: true, badge: 'Crypto' },
+          { label: 'Become a Provider', href: '/providers', description: 'Earn 80% of fees', icon: Wallet },
         ],
       },
       {
-        title: 'Resources',
-        description: 'Documentation & support',
+        title: 'Obelysk Protocol',
+        description: 'Privacy-first DeFi on Stark',
         items: [
-          { label: 'Technical Docs', href: '/docs', description: 'API reference & guides', icon: BookOpen },
-          { label: 'Architecture Guide', href: '/manifesto', description: 'System design overview', icon: FileText },
-          { label: 'Blog & News', href: '/blog', description: 'Latest insights & updates', icon: FileText },
+          { label: 'Dark Pool Trading', href: '/obelysk', description: 'Private order matching', icon: Lock, badge: 'New' },
+          { label: 'Privacy Wallets', href: '/obelysk#wallets', description: 'Encrypted transactions', icon: Shield },
+          { label: 'Private Staking', href: '/obelysk#staking', description: 'Anonymous yield', icon: Sparkles },
+        ],
+      },
+      {
+        title: 'STWO-ML Prover',
+        description: 'GPU-accelerated verifiable AI',
+        items: [
+          { label: 'STWO-ML Overview', href: '/stwo-ml', description: 'Verifiable AI inference', icon: Cpu, badge: 'New' },
+          { label: 'GPU Proving', href: '/stwo-ml#architecture', description: 'H200 parallelized proofs', icon: Zap },
+          { label: 'On-Chain Verify', href: '/stwo-ml#contracts', description: 'Starknet verification', icon: Shield },
         ],
       },
     ],
@@ -47,30 +53,28 @@ const menuItems = [
     megaMenu: true,
     sections: [
       {
-        title: 'For Enterprises',
-        description: 'Scalable compute infrastructure',
+        title: 'By Industry',
+        description: 'GPU compute for your needs',
         items: [
-          { label: 'AI & ML Teams', href: '/solutions#enterprise-ai', description: 'Training & inference at scale', icon: Zap },
-          { label: 'Media & Entertainment', href: '/solutions#media', description: 'Rendering & post-production', icon: Settings },
-          { label: 'Research Institutions', href: '/solutions#research', description: 'Scientific computing', icon: BookOpen },
-          { label: 'Custom Deployments', href: '/solutions#custom', description: 'Tailored solutions', icon: Building2 },
+          { label: 'AI & ML Teams', href: '/ai-inference', description: 'Training & inference at scale', icon: Zap },
+          { label: 'Creative Studios', href: '/creative-studios', description: 'Rendering & post-production', icon: Settings },
+          { label: 'Research Labs', href: '/research-labs', description: 'Scientific computing', icon: BookOpen },
         ],
       },
       {
-        title: 'For Providers',
-        description: 'Monetize compute resources',
+        title: 'Agentic Workflows',
+        description: 'AI automation at scale',
         items: [
-          { label: 'Data Centers', href: '/solutions#datacenters', description: 'Enterprise-grade hosting', icon: Building2 },
-          { label: 'GPU Providers', href: '/solutions#gpu-providers', description: 'Hardware monetization', icon: Server },
-          { label: 'Node Operators', href: '/solutions#operators', description: 'Network participation', icon: Network },
+          { label: 'MoltBook Integration', href: 'https://www.moltbook.com/', description: 'Run agentic AI workflows', icon: Sparkles, external: true, badge: 'Hot' },
+          { label: 'Workflow Builder', href: '/docs/workflows', description: 'Design AI pipelines', icon: Code },
         ],
       },
       {
-        title: 'Developer Tools',
-        description: 'Build on BitSage',
+        title: 'Developers',
+        description: 'Build with BitSage',
         items: [
-          { label: 'API & SDKs', href: '/docs#api', description: 'Integration tools', icon: Code },
-          { label: 'CLI Tools', href: '/docs#cli', description: 'Command line interface', icon: Settings },
+          { label: 'Quick Start', href: '/docs/getting-started', description: 'Get running in minutes', icon: Code },
+          { label: 'API Reference', href: '/docs/api-reference', description: 'Full documentation', icon: FileText },
         ],
       },
     ],
@@ -78,20 +82,18 @@ const menuItems = [
   {
     label: 'Network',
     dropdown: [
-      { label: 'Network Status', href: '/network#status', icon: Network },
-      { label: 'Node Dashboard', href: '/network#nodes', icon: Server },
-      { label: 'Performance Metrics', href: '/network#metrics', icon: Zap },
-      { label: 'Governance', href: '/network#governance', icon: Users },
+      { label: 'Network Status', href: '/network', icon: Network },
+      { label: 'Validator Dashboard', href: 'https://validators.bitsage.network', icon: Server, external: true },
+      { label: 'Performance Benchmarks', href: '/docs/benchmark-tco-brief', icon: Zap },
     ],
     megaMenu: false,
   },
   {
-    label: 'Company',
+    label: 'Docs',
     dropdown: [
-      { label: 'About BitSage', href: '/company#about', icon: Building2 },
-      { label: 'Contact Sales', href: '/company#contact', icon: Phone },
-      { label: 'Partnerships', href: '/company#partners', icon: Users },
-      { label: 'Careers', href: '/company#careers', icon: Building2 },
+      { label: 'Documentation', href: '/docs', icon: BookOpen },
+      { label: 'Whitepaper', href: '/manifesto', icon: FileText },
+      { label: 'Blog', href: '/blog', icon: FileText },
     ],
     megaMenu: false,
   },
@@ -160,9 +162,9 @@ export function Navigation() {
                           onMouseEnter={() => setOpenDropdown(item.label)}
                           onMouseLeave={() => setOpenDropdown(null)}
                         >
-                          <div className="w-[900px] max-w-[90vw] bg-white border border-slate-200 rounded-lg overflow-hidden shadow-xl"
+                          <div className={`${(item.sections?.length ?? 3) >= 4 ? 'w-[1100px]' : 'w-[900px]'} max-w-[90vw] bg-white border border-slate-200 rounded-lg overflow-hidden shadow-xl`}
                         >
-                          <div className="grid grid-cols-3 gap-0">
+                          <div className={`grid ${(item.sections?.length ?? 3) >= 4 ? 'grid-cols-4' : 'grid-cols-3'} gap-0`}>
                             {item.sections?.map((section, sectionIndex) => (
                               <div 
                                 key={section.title} 
@@ -178,10 +180,12 @@ export function Navigation() {
                                 
                                 {/* Section Items */}
                                 <div className="space-y-1">
-                                  {section.items.map((subItem) => (
+                                  {section.items.map((subItem: { label: string; href: string; description: string; icon: React.ComponentType<{ className?: string }>; external?: boolean; badge?: string }) => (
                                     <a
                                       key={subItem.label}
                                       href={subItem.href}
+                                      target={subItem.external ? '_blank' : undefined}
+                                      rel={subItem.external ? 'noopener noreferrer' : undefined}
                                       className="block p-3 rounded-md hover:bg-slate-50 transition-colors group"
                                     >
                                       <div className="flex items-start gap-3">
@@ -189,8 +193,23 @@ export function Navigation() {
                                           <subItem.icon className="w-4 h-4" />
                                         </div>
                                         <div className="flex-1">
-                                          <div className="text-sm font-medium text-slate-900 group-hover:text-blue-600 transition-colors mb-0.5">
-                                            {subItem.label}
+                                          <div className="flex items-center gap-2 mb-0.5">
+                                            <span className="text-sm font-medium text-slate-900 group-hover:text-emerald-600 transition-colors">
+                                              {subItem.label}
+                                            </span>
+                                            {subItem.external && (
+                                              <ExternalLink className="w-3 h-3 text-slate-400" />
+                                            )}
+                                            {subItem.badge && (
+                                              <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${
+                                                subItem.badge === 'Hot' ? 'bg-orange-100 text-orange-600' :
+                                                subItem.badge === 'New' ? 'bg-violet-100 text-violet-600' :
+                                                subItem.badge === 'Crypto' ? 'bg-amber-100 text-amber-700' :
+                                                'bg-blue-100 text-blue-600'
+                                              }`}>
+                                                {subItem.badge}
+                                              </span>
+                                            )}
                                           </div>
                                           <div className="text-xs text-slate-600 leading-relaxed">
                                             {subItem.description}
@@ -215,14 +234,19 @@ export function Navigation() {
                           className="absolute top-full left-0 mt-2 w-64 bg-white border border-slate-200 rounded-lg overflow-hidden shadow-lg"
                         >
                           <div className="p-2">
-                            {item.dropdown?.map((subItem) => (
+                            {item.dropdown?.map((subItem: { label: string; href: string; icon: React.ComponentType<{ className?: string }>; external?: boolean }) => (
                               <a
                                 key={subItem.label}
                                 href={subItem.href}
+                                target={subItem.external ? '_blank' : undefined}
+                                rel={subItem.external ? 'noopener noreferrer' : undefined}
                                 className="flex items-center gap-3 px-3 py-2 text-sm rounded-md hover:bg-slate-50 transition-colors group"
                               >
                                 <subItem.icon className="w-4 h-4 text-slate-600 group-hover:text-slate-900 transition-colors" />
                                 <span className="text-slate-700 group-hover:text-slate-900 transition-colors font-medium">{subItem.label}</span>
+                                {subItem.external && (
+                                  <ExternalLink className="w-3 h-3 text-slate-400 ml-auto" />
+                                )}
                               </a>
                             ))}
                           </div>
@@ -320,10 +344,12 @@ export function Navigation() {
                                   <p className="text-xs text-slate-500">{section.description}</p>
                                 </div>
                                 <div className="space-y-1">
-                                  {section.items.map((subItem) => (
+                                  {section.items.map((subItem: { label: string; href: string; description: string; icon: React.ComponentType<{ className?: string }>; external?: boolean; badge?: string }) => (
                                     <a
                                       key={subItem.label}
                                       href={subItem.href}
+                                      target={subItem.external ? '_blank' : undefined}
+                                      rel={subItem.external ? 'noopener noreferrer' : undefined}
                                       onClick={() => {
                                         setIsMenuOpen(false);
                                         setMobileOpenDropdown(null);
@@ -334,8 +360,23 @@ export function Navigation() {
                                         <subItem.icon className="w-4 h-4" />
                                       </div>
                                       <div className="flex-1 min-w-0">
-                                        <div className="text-sm font-medium text-slate-300 mb-0.5">
-                                          {subItem.label}
+                                        <div className="flex items-center gap-2 mb-0.5">
+                                          <span className="text-sm font-medium text-slate-300">
+                                            {subItem.label}
+                                          </span>
+                                          {subItem.external && (
+                                            <ExternalLink className="w-3 h-3 text-slate-500" />
+                                          )}
+                                          {subItem.badge && (
+                                            <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${
+                                              subItem.badge === 'Hot' ? 'bg-orange-500/20 text-orange-400' :
+                                              subItem.badge === 'New' ? 'bg-violet-500/20 text-violet-400' :
+                                              subItem.badge === 'Crypto' ? 'bg-amber-500/20 text-amber-400' :
+                                              'bg-blue-500/20 text-blue-400'
+                                            }`}>
+                                              {subItem.badge}
+                                            </span>
+                                          )}
                                         </div>
                                         <div className="text-xs text-slate-500 leading-relaxed">
                                           {subItem.description}
