@@ -151,6 +151,24 @@ export default function ManifestoPage() {
           </div>
         </div>
 
+        {/* TL;DR Box */}
+        <div className="mb-16 bg-gradient-to-r from-emerald-50 to-blue-50 border-2 border-emerald-200 rounded-2xl p-8">
+          <div className="flex items-start gap-4">
+            <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center flex-shrink-0">
+              <Zap className="w-6 h-6 text-emerald-600" />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-gray-900 mb-3">TL;DR</h2>
+              <p className="text-gray-700 leading-relaxed text-lg">
+                <strong className="text-emerald-600">BitSage</strong> is a decentralized GPU network with cryptographic proof of execution.
+                We deliver <strong>98x faster ZK proofs</strong> using GPU-accelerated STARK verification,
+                with <strong>30-60% cost savings</strong> compared to traditional cloud providers like AWS.
+                Providers earn 80% of compute fees while users get verifiable, trustless GPU compute for AI, rendering, and scientific workloads.
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Section: Executive Summary */}
         <section id="executive-summary" className="mb-20 scroll-mt-24">
           <div className="flex items-center gap-3 mb-6">

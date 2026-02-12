@@ -30,7 +30,20 @@ const blogPosts = [
     category: 'Technical',
     tags: ['verification', 'zero-knowledge', 'proof-of-compute', 'hybrid-proofs'],
     featured: true,
-        image: '/blog/hybrid-verification.jpg'
+    image: '/blog/hybrid-verification.jpg'
+  },
+  {
+    id: 'stwo-gpu-acceleration',
+    title: 'Stwo GPU Acceleration: 98x Faster Proofs',
+    excerpt: 'How we achieved 98x faster ZK proof generation by leveraging GPU acceleration with the Stwo prover. A deep dive into our optimization journey.',
+    content: 'Full content available in dedicated article page...',
+    author: 'BitSage Engineering Team',
+    publishedAt: '2024-12-12',
+    readTime: '10 min read',
+    category: 'Technical',
+    tags: ['stwo', 'gpu', 'performance', 'zero-knowledge'],
+    featured: false,
+    image: '/blog/stwo-gpu.jpg'
   },
   {
     id: 'introducing-bitsage-network',
@@ -43,7 +56,20 @@ const blogPosts = [
     category: 'Company News',
     tags: ['announcement', 'verifiable-computing', 'vision'],
     featured: false,
-        image: '/blog/introducing-bitsage.jpg'
+    image: '/blog/introducing-bitsage.jpg'
+  },
+  {
+    id: 'understanding-pricing-model',
+    title: 'Understanding Our Pricing Model: Pay Only for What You Use',
+    excerpt: 'A transparent breakdown of BitSage pricing, from GPU-hour rates to volume discounts. Learn how we keep costs 30-60% lower than traditional cloud providers.',
+    content: 'Full content available in dedicated article page...',
+    author: 'BitSage Team',
+    publishedAt: '2024-12-08',
+    readTime: '4 min read',
+    category: 'Company News',
+    tags: ['pricing', 'economics', 'transparency'],
+    featured: false,
+    image: '/blog/pricing-model.jpg'
   },
   {
     id: 'zero-knowledge-proofs-explained',
@@ -56,14 +82,28 @@ const blogPosts = [
     category: 'Technical',
     tags: ['zero-knowledge', 'cryptography', 'distributed-systems'],
     featured: false,
-        image: '/blog/zk-proofs.jpg'
+    image: '/blog/zk-proofs.jpg'
+  },
+  {
+    id: 'provider-spotlight-first-100',
+    title: 'Provider Spotlight: Our First 100 Nodes',
+    excerpt: 'Meet the early providers powering the BitSage network. From individual enthusiasts to data centers, see who\'s building the future of verifiable compute.',
+    content: 'Full content available in dedicated article page...',
+    author: 'BitSage Community Team',
+    publishedAt: '2024-12-01',
+    readTime: '6 min read',
+    category: 'Community',
+    tags: ['providers', 'community', 'network'],
+    featured: false,
+    image: '/blog/provider-spotlight.jpg'
   }
 ];
 
 const categories = [
   'All Posts',
   'Company News',
-  'Technical'
+  'Technical',
+  'Community'
 ];
 
 export default function BlogPage() {
@@ -105,15 +145,18 @@ export default function BlogPage() {
   };
 
   return (
-    <PublicPageLayout className="bg-slate-50">
+    <PublicPageLayout className="bg-slate-950">
       {/* Header */}
-      <section className="bg-slate-900 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative pt-32 pb-16 overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-emerald-950/10 to-slate-950" />
+        </div>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
               BitSage Blog
             </h1>
-            <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+            <p className="text-xl text-slate-400 max-w-3xl mx-auto">
               Latest insights on verifiable computing, distributed systems, and the future of decentralized infrastructure.
             </p>
           </div>
@@ -121,16 +164,16 @@ export default function BlogPage() {
       </section>
 
       {/* Search and Filters */}
-      <section className="py-12 bg-white border-b border-slate-200">
+      <section className="py-8 border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row gap-6 items-center justify-between">
             {/* Search */}
             <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-500" />
               <input
                 type="text"
                 placeholder="Search articles..."
-                className="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                className="w-full pl-10 pr-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none"
               />
             </div>
 
@@ -141,8 +184,8 @@ export default function BlogPage() {
                   key={category}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                     category === 'All Posts'
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                      ? 'bg-emerald-600 text-white'
+                      : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'
                   }`}
                 >
                   {category}
@@ -158,24 +201,25 @@ export default function BlogPage() {
         <section className="py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="mb-8">
-              <span className="inline-flex items-center gap-2 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+              <span className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-full text-sm font-medium">
                 <Tag className="w-4 h-4" />
                 Featured
               </span>
             </div>
-            
-            <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+
+            <div className="bg-slate-800/50 rounded-2xl border border-slate-700/50 overflow-hidden">
               <div className="md:flex">
-                <div className="md:w-1/2">
-                  <img 
-                    src={featuredPost.image} 
-                    alt={featuredPost.title}
-                    className="h-64 md:h-full w-full object-cover"
-                  />
+                <div className="md:w-1/2 bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 flex items-center justify-center p-12">
+                  <div className="text-center">
+                    <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center">
+                      <Tag className="w-10 h-10 text-emerald-400" />
+                    </div>
+                    <span className="text-slate-400 text-sm">{featuredPost.category}</span>
+                  </div>
                 </div>
                 <div className="md:w-1/2 p-8">
-                  <div className="flex items-center gap-4 text-sm text-slate-600 mb-4">
-                    <span className="px-3 py-1 bg-slate-100 rounded-full">{featuredPost.category}</span>
+                  <div className="flex items-center gap-4 text-sm text-slate-500 mb-4">
+                    <span className="px-3 py-1 bg-slate-700/50 rounded-full text-slate-300">{featuredPost.category}</span>
                     <div className="flex items-center gap-1">
                       <Calendar className="w-4 h-4" />
                       <span>{new Date(featuredPost.publishedAt).toLocaleDateString()}</span>
@@ -185,20 +229,20 @@ export default function BlogPage() {
                       <span>{featuredPost.readTime}</span>
                     </div>
                   </div>
-                  
-                  <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
+
+                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
                     {featuredPost.title}
                   </h2>
-                  
-                  <p className="text-slate-600 mb-6 leading-relaxed">
+
+                  <p className="text-slate-400 mb-6 leading-relaxed">
                     {featuredPost.excerpt}
                   </p>
-                  
+
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-slate-500">By {featuredPost.author}</span>
-                    <Link 
+                    <Link
                       href={`/blog/${featuredPost.id}`}
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium"
                     >
                       Read More
                       <ArrowRight className="w-4 h-4" />
@@ -216,39 +260,39 @@ export default function BlogPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {regularPosts.map((post) => (
-              <article key={post.id} className="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition-shadow">
-                <img 
-                  src={post.image} 
-                  alt={post.title}
-                  className="h-48 w-full object-cover"
-                />
-                
+              <article key={post.id} className="bg-slate-800/50 rounded-xl border border-slate-700/50 overflow-hidden hover:border-slate-600 transition-all">
+                <div className="h-48 bg-gradient-to-br from-slate-700/50 to-slate-800/50 flex items-center justify-center">
+                  <div className="w-16 h-16 rounded-xl bg-slate-700/50 border border-slate-600/50 flex items-center justify-center">
+                    <Tag className="w-8 h-8 text-slate-500" />
+                  </div>
+                </div>
+
                 <div className="p-6">
-                  <div className="flex items-center gap-4 text-sm text-slate-600 mb-3">
-                    <span className="px-2 py-1 bg-slate-100 rounded text-xs">{post.category}</span>
+                  <div className="flex items-center gap-4 text-sm text-slate-500 mb-3">
+                    <span className="px-2 py-1 bg-slate-700/50 rounded text-xs text-slate-400">{post.category}</span>
                     <div className="flex items-center gap-1">
                       <Calendar className="w-3 h-3" />
                       <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
                     </div>
                   </div>
-                  
-                  <h3 className="text-lg font-semibold text-slate-900 mb-3 line-clamp-2">
+
+                  <h3 className="text-lg font-semibold text-white mb-3 line-clamp-2">
                     {post.title}
                   </h3>
-                  
-                  <p className="text-slate-600 text-sm mb-4 line-clamp-3">
+
+                  <p className="text-slate-400 text-sm mb-4 line-clamp-3">
                     {post.excerpt}
                   </p>
-                  
+
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-xs text-slate-500">
                       <span>{post.author}</span>
                       <span>•</span>
                       <span>{post.readTime}</span>
                     </div>
-                    <Link 
+                    <Link
                       href={`/blog/${post.id}`}
-                      className="text-blue-600 hover:text-blue-700 text-sm font-medium flex items-center gap-1"
+                      className="text-emerald-400 hover:text-emerald-300 text-sm font-medium flex items-center gap-1"
                     >
                       Read More
                       <ArrowRight className="w-3 h-3" />
@@ -262,13 +306,13 @@ export default function BlogPage() {
       </section>
 
       {/* Newsletter Signup */}
-      <section className="py-16 bg-slate-900 text-white">
+      <section className="py-16 bg-gradient-to-r from-emerald-600 to-cyan-600">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-4">Stay Updated</h2>
-          <p className="text-slate-300 mb-8">
+          <h2 className="text-3xl font-bold text-white mb-4">Stay Updated</h2>
+          <p className="text-emerald-100 mb-8">
             Get the latest insights on verifiable computing and BitSage Network developments delivered to your inbox.
           </p>
-          
+
           {!isNewsletterSubmitted ? (
             <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
               <input
@@ -276,21 +320,21 @@ export default function BlogPage() {
                 value={newsletterEmail}
                 onChange={(e) => setNewsletterEmail(e.target.value)}
                 placeholder="Enter your email"
-                className="flex-1 px-4 py-3 rounded-lg text-slate-900 focus:ring-2 focus:ring-blue-500 outline-none"
+                className="flex-1 px-4 py-3 rounded-lg border-2 border-white/20 bg-white/10 text-white placeholder-white/60 focus:border-white focus:outline-none"
                 required
                 disabled={isNewsletterSubmitting}
               />
-              <button 
+              <button
                 type="submit"
                 disabled={isNewsletterSubmitting}
-                className="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-6 py-3 bg-white text-emerald-700 font-bold rounded-lg hover:bg-emerald-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isNewsletterSubmitting ? 'Subscribing...' : 'Subscribe'}
               </button>
             </form>
           ) : (
-            <div className="text-center">
-              <p className="text-green-100 font-medium">✅ Thanks for subscribing! Check your email for confirmation.</p>
+            <div className="bg-white/20 backdrop-blur-sm rounded-xl p-6 max-w-md mx-auto">
+              <p className="text-white font-medium">Thanks for subscribing! Check your email for confirmation.</p>
             </div>
           )}
         </div>

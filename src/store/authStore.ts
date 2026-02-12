@@ -4,8 +4,18 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { User, AuthState } from '@/lib/types/user';
 
+interface OAuthUserData {
+  id: string;
+  email: string;
+  name: string;
+  avatar?: string;
+  provider: string;
+  emailVerified?: boolean;
+}
+
 interface AuthStore extends AuthState {
   login: (email: string, password: string) => Promise<void>;
+  loginWithOAuth: (userData: OAuthUserData) => Promise<void>;
   signup: (email: string, password: string, name: string) => Promise<void>;
   logout: () => void;
   updateUser: (updates: Partial<User>) => void;
@@ -107,18 +117,65 @@ export const useAuthStore = create<AuthStore>()(
 
       login: async (email: string, password: string) => {
         set({ isLoading: true, error: null });
-        
+
         try {
           const user = await mockLogin(email, password);
-          set({ 
-            user, 
-            isAuthenticated: true, 
+          set({
+            user,
+            isAuthenticated: true,
             isLoading: false,
             error: null,
           });
         } catch (error) {
-          set({ 
+          set({
             error: error instanceof Error ? error.message : 'Login failed',
+            isLoading: false,
+          });
+          throw error;
+        }
+      },
+
+      loginWithOAuth: async (userData: OAuthUserData) => {
+        set({ isLoading: true, error: null });
+
+        try {
+          // Create user from OAuth data
+          const user: User = {
+            id: userData.id,
+            email: userData.email,
+            name: userData.name,
+            avatar: userData.avatar,
+            emailVerified: userData.emailVerified ?? true,
+            createdAt: new Date(),
+            authProvider: userData.provider as 'github' | 'google' | 'email',
+            reputation: 50, // New OAuth users start with base reputation
+            totalJobs: 0,
+            totalSpent: 0,
+            plan: 'free',
+            features: ['basic-gpu', 'template-access', 'sage-chat'],
+            apiKeys: [],
+            preferences: {
+              defaultPaymentToken: 'SAGE',
+              defaultGpuTier: 'RTX-4090',
+              notifications: {
+                email: true,
+                jobComplete: true,
+                jobFailed: true,
+                lowBalance: true,
+              },
+              theme: 'dark',
+            },
+          };
+
+          set({
+            user,
+            isAuthenticated: true,
+            isLoading: false,
+            error: null,
+          });
+        } catch (error) {
+          set({
+            error: error instanceof Error ? error.message : 'OAuth login failed',
             isLoading: false,
           });
           throw error;

@@ -23,6 +23,9 @@ import {
   Library,
   GitBranch,
   ShoppingCart,
+  Server,
+  Wallet,
+  Activity,
 } from 'lucide-react';
 import { DeployModal } from '@/components/webapp/modals/DeployModal';
 
@@ -104,6 +107,30 @@ const advancedItems: NavItem[] = [
     href: '/dashboard/workflows',
     icon: GitBranch,
     badge: 'API',
+  },
+];
+
+// Validator - For GPU providers
+const validatorItems: NavItem[] = [
+  {
+    label: 'Validator Dashboard',
+    href: '/dashboard/validator',
+    icon: Server,
+  },
+  {
+    label: 'My GPUs',
+    href: '/dashboard/validator/gpus',
+    icon: Cpu,
+  },
+  {
+    label: 'Earnings',
+    href: '/dashboard/validator/earnings',
+    icon: Wallet,
+  },
+  {
+    label: 'Rental Activity',
+    href: '/dashboard/validator/rentals',
+    icon: Activity,
   },
 ];
 
@@ -238,6 +265,21 @@ export function Sidebar({ isOpen }: SidebarProps) {
             </div>
             <div className="space-y-1">
               {advancedItems.map((item) => (
+                <NavLink key={item.href} item={item} isActive={isActive(item.href)} />
+              ))}
+            </div>
+          </div>
+
+          {/* Validator - GPU Providers */}
+          <div>
+            <div className="px-3 mb-3 flex items-center gap-2">
+              <Server className="w-3.5 h-3.5 text-gray-500" />
+              <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">
+                Validator
+              </span>
+            </div>
+            <div className="space-y-1">
+              {validatorItems.map((item) => (
                 <NavLink key={item.href} item={item} isActive={isActive(item.href)} />
               ))}
             </div>

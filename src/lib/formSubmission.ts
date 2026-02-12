@@ -151,22 +151,22 @@ export class GoogleSheetsService {
 
   async submitForm(data: any): Promise<{ success: boolean; message: string }> {
     try {
+      // Google Apps Script requires no-cors mode or uses redirect
+      // We use fetch with redirect: 'follow' to handle the OAuth redirect
       const response = await fetch(this.scriptUrl, {
         method: 'POST',
-        mode: 'cors',
+        mode: 'no-cors', // Required for Google Apps Script
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
       });
 
-      if (response.ok) {
-        return { success: true, message: 'Form submitted successfully!' };
-      } else {
-        throw new Error('Form submission failed');
-      }
+      // With no-cors, we can't read the response, but if no error thrown, assume success
+      // Google Apps Script will process the request
+      return { success: true, message: 'Form submitted successfully!' };
     } catch (error) {
-      console.error('Form submission error:', error);
+      console.error('Google Sheets submission error:', error);
       return { success: false, message: 'Failed to submit form. Please try again.' };
     }
   }
@@ -207,18 +207,28 @@ export class AirtableService {
 
 // Main form submission service - configure which service to use
 export class FormSubmissionService {
-  private waitlistService: FormspreeService;
+  private waitlistSheetsService: GoogleSheetsService | null;
   private newsletterService: FormspreeService;
   private contactService: FormspreeService;
   private jobApplicationService: FormspreeService;
+  // Fallback to Formspree if Google Sheets not configured
+  private waitlistFormspreeService: FormspreeService;
 
   constructor() {
-    // BitSage Formspree Project ID: 2850396847564913748
-    // Using the actual form endpoints from your Formspree project
-    this.waitlistService = new FormspreeService('https://formspree.io/p/2850396847564913748/f/waitlist');
+    // Google Sheets for waitlist (preferred)
+    // Set NEXT_PUBLIC_GOOGLE_SHEETS_WAITLIST_URL in your .env.local
+    const sheetsUrl = typeof window !== 'undefined'
+      ? process.env.NEXT_PUBLIC_GOOGLE_SHEETS_WAITLIST_URL
+      : process.env.NEXT_PUBLIC_GOOGLE_SHEETS_WAITLIST_URL;
+
+    this.waitlistSheetsService = sheetsUrl ? new GoogleSheetsService(sheetsUrl) : null;
+
+    // Formspree fallback for waitlist
+    this.waitlistFormspreeService = new FormspreeService('https://formspree.io/p/2850396847564913748/f/waitlist');
+
+    // Other forms still use Formspree
     this.newsletterService = new FormspreeService('https://formspree.io/p/2850396847564913748/f/newsletter');
     this.contactService = new FormspreeService('https://formspree.io/p/2850396847564913748/f/contact');
-    // Job application form endpoint - supports file uploads
     this.jobApplicationService = new FormspreeService('https://formspree.io/p/2850396847564913748/f/careers');
   }
 
@@ -231,7 +241,14 @@ export class FormSubmissionService {
       userAgent: typeof window !== 'undefined' ? window.navigator.userAgent : 'unknown',
     };
 
-    return this.waitlistService.submitForm(submissionData);
+    // Use Google Sheets if configured, otherwise fall back to Formspree
+    if (this.waitlistSheetsService) {
+      console.log('Submitting to Google Sheets...');
+      return this.waitlistSheetsService.submitForm(submissionData);
+    } else {
+      console.log('Google Sheets not configured, using Formspree fallback...');
+      return this.waitlistFormspreeService.submitForm(submissionData);
+    }
   }
 
   async submitNewsletter(data: NewsletterFormData) {

@@ -2,13 +2,14 @@
 
 export interface User {
   id: string;
-  
+
   // Traditional Auth (Primary)
   email: string;
   name: string;
   avatar?: string;
   emailVerified: boolean;
   createdAt: Date;
+  authProvider?: 'email' | 'github' | 'google';
   
   // Wallet Connection (Optional, for payments)
   walletAddress?: string; // Starknet wallet (Braavos, ArgentX)

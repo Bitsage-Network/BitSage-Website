@@ -74,8 +74,8 @@ export function AnimatedGridBackground() {
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw grid
-      ctx.strokeStyle = 'rgba(0, 0, 0, 0.08)';
+      // Draw grid (white lines for dark backgrounds)
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
       ctx.lineWidth = 1;
 
       // Vertical lines
@@ -121,15 +121,15 @@ export function AnimatedGridBackground() {
           gradient.addColorStop(1, `rgba(16, 185, 129, ${pulse.intensity})`);
           
           ctx.strokeStyle = gradient;
-          ctx.lineWidth = 3;
+          ctx.lineWidth = 4;
           ctx.shadowColor = 'rgba(16, 185, 129, 1.0)';
-          ctx.shadowBlur = 16;
-          
+          ctx.shadowBlur = 25;
+
           ctx.beginPath();
           ctx.moveTo(startX, pulse.y);
           ctx.lineTo(endX, pulse.y);
           ctx.stroke();
-          
+
           // Reset shadow
           ctx.shadowBlur = 0;
           
@@ -156,15 +156,15 @@ export function AnimatedGridBackground() {
           gradient.addColorStop(1, `rgba(16, 185, 129, ${pulse.intensity})`);
           
           ctx.strokeStyle = gradient;
-          ctx.lineWidth = 3;
+          ctx.lineWidth = 4;
           ctx.shadowColor = 'rgba(16, 185, 129, 1.0)';
-          ctx.shadowBlur = 16;
-          
+          ctx.shadowBlur = 25;
+
           ctx.beginPath();
           ctx.moveTo(pulse.x, startY);
           ctx.lineTo(pulse.x, endY);
           ctx.stroke();
-          
+
           // Reset shadow
           ctx.shadowBlur = 0;
         }

@@ -1,16 +1,191 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { Mail, Lock, Github, Chrome, Wallet, ArrowRight, Zap, Shield, Eye, EyeOff } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Mail, Lock, Github, Chrome, Wallet, ArrowRight, Zap, Shield, Eye, EyeOff, X } from 'lucide-react';
 import { useAuthStore } from '@/store/authStore';
+import { useWalletStore } from '@/store/walletStore';
 
-export default function LoginPage() {
+// OAuth error messages
+const OAUTH_ERRORS: Record<string, string> = {
+  github_not_configured: 'GitHub authentication is not configured. Please contact support.',
+  missing_code: 'Authentication failed. Please try again.',
+  invalid_state: 'Security verification failed. Please try again.',
+  oauth_failed: 'Authentication failed. Please try again.',
+  auth_failed: 'Could not complete authentication. Please try again.',
+  no_verified_email: 'Please verify your GitHub email address and try again.',
+  access_denied: 'Authentication was cancelled.',
+};
+
+// Wallet selection modal component
+function WalletModal({
+  isOpen,
+  onClose,
+  onSelectWallet,
+  isConnecting,
+  walletError
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  onSelectWallet: (provider: 'braavos' | 'argentx') => void;
+  isConnecting: boolean;
+  walletError: string | null;
+}) {
+  if (!isOpen) return null;
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+        onClick={onClose}
+      >
+        <motion.div
+          initial={{ scale: 0.95, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.95, opacity: 0 }}
+          onClick={(e) => e.stopPropagation()}
+          className="bg-slate-900 border border-white/20 rounded-2xl p-6 w-full max-w-md shadow-2xl"
+        >
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-xl font-bold text-white">Connect Wallet</h3>
+            <button
+              onClick={onClose}
+              className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+              disabled={isConnecting}
+            >
+              <X className="w-5 h-5 text-slate-400" />
+            </button>
+          </div>
+
+          {walletError && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-4 p-3 bg-red-500/20 border border-red-500/50 rounded-lg text-red-200 text-sm"
+            >
+              {walletError}
+            </motion.div>
+          )}
+
+          <p className="text-slate-400 text-sm mb-4">
+            Select a wallet to connect. You'll be asked to sign a message to verify ownership.
+          </p>
+
+          <div className="space-y-3">
+            <button
+              onClick={() => onSelectWallet('braavos')}
+              disabled={isConnecting}
+              className="w-full flex items-center gap-4 p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyan-500/50 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-red-500 rounded-xl flex items-center justify-center">
+                <span className="text-2xl">🦊</span>
+              </div>
+              <div className="text-left">
+                <p className="font-semibold text-white">Braavos</p>
+                <p className="text-sm text-slate-400">Smart Contract Wallet</p>
+              </div>
+              {isConnecting && (
+                <div className="ml-auto w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              )}
+            </button>
+
+            <button
+              onClick={() => onSelectWallet('argentx')}
+              disabled={isConnecting}
+              className="w-full flex items-center gap-4 p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyan-500/50 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-amber-400 rounded-xl flex items-center justify-center">
+                <span className="text-2xl">🛡️</span>
+              </div>
+              <div className="text-left">
+                <p className="font-semibold text-white">ArgentX</p>
+                <p className="text-sm text-slate-400">Security-First Wallet</p>
+              </div>
+              {isConnecting && (
+                <div className="ml-auto w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              )}
+            </button>
+          </div>
+
+          <p className="text-xs text-slate-500 text-center mt-4">
+            Don't have a wallet?{' '}
+            <a
+              href="https://braavos.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-cyan-400 hover:underline"
+            >
+              Get Braavos
+            </a>
+            {' '}or{' '}
+            <a
+              href="https://www.argent.xyz/argent-x/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-cyan-400 hover:underline"
+            >
+              Get ArgentX
+            </a>
+          </p>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
+// Wrapper component to handle search params
+function LoginContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { login, isLoading, error, clearError } = useAuthStore();
-  
+  const { connect, signMessage, wallet, isConnecting, error: walletStoreError } = useWalletStore();
+  const [oauthError, setOauthError] = useState<string | null>(null);
+  const [showWalletModal, setShowWalletModal] = useState(false);
+  const [walletError, setWalletError] = useState<string | null>(null);
+
+  // Check for OAuth errors in URL
+  useEffect(() => {
+    const errorParam = searchParams.get('error');
+    if (errorParam) {
+      setOauthError(OAUTH_ERRORS[errorParam] || `Authentication error: ${errorParam}`);
+      // Clear the error from URL without navigation
+      window.history.replaceState({}, '', '/login');
+    }
+  }, [searchParams]);
+
+  // Handle wallet connection and signature
+  const handleWalletConnect = async (provider: 'braavos' | 'argentx') => {
+    setWalletError(null);
+
+    try {
+      // Step 1: Connect wallet (triggers wallet popup)
+      await connect(provider);
+
+      // Step 2: Request signature to verify ownership
+      const message = `Sign this message to verify your wallet ownership for BitSage Network.\n\nTimestamp: ${Date.now()}`;
+
+      try {
+        await signMessage(message);
+
+        // Step 3: Success - navigate to dashboard
+        setShowWalletModal(false);
+        router.push('/dashboard/jobs');
+      } catch (signError) {
+        // User rejected signature or error occurred
+        const errorMessage = signError instanceof Error ? signError.message : 'Signature rejected';
+        setWalletError(`Signature verification failed: ${errorMessage}`);
+      }
+    } catch (connectError) {
+      const errorMessage = connectError instanceof Error ? connectError.message : 'Failed to connect wallet';
+      setWalletError(errorMessage);
+    }
+  };
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -32,8 +207,25 @@ export default function LoginPage() {
   };
 
   const handleSocialLogin = (provider: string) => {
-    // Placeholder for social login
-    alert(`${provider} login coming soon!`);
+    clearError();
+
+    switch (provider) {
+      case 'GitHub':
+        // Redirect to GitHub OAuth
+        window.location.href = '/api/auth/github';
+        break;
+      case 'Google':
+        // Google OAuth not yet implemented
+        alert('Google login coming soon! Use GitHub or email for now.');
+        break;
+      case 'Wallet':
+        // Show wallet selection modal
+        setWalletError(null);
+        setShowWalletModal(true);
+        break;
+      default:
+        alert(`${provider} login not available`);
+    }
   };
 
   return (
@@ -76,13 +268,21 @@ export default function LoginPage() {
           className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-8 shadow-2xl"
         >
           {/* Error Message */}
-          {error && (
+          {(error || oauthError) && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               className="mb-6 p-4 bg-red-500/20 border border-red-500/50 rounded-lg text-red-200 text-sm"
             >
-              {error}
+              {oauthError || error}
+              {oauthError && (
+                <button
+                  onClick={() => setOauthError(null)}
+                  className="ml-2 text-red-300 hover:text-white underline"
+                >
+                  Dismiss
+                </button>
+              )}
             </motion.div>
           )}
 
@@ -234,8 +434,30 @@ export default function LoginPage() {
           </p>
         </motion.div>
       </motion.div>
+
+      {/* Wallet Selection Modal */}
+      <WalletModal
+        isOpen={showWalletModal}
+        onClose={() => setShowWalletModal(false)}
+        onSelectWallet={handleWalletConnect}
+        isConnecting={isConnecting}
+        walletError={walletError}
+      />
     </div>
   );
 }
 
-
+// Main export with Suspense boundary for useSearchParams
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 flex items-center justify-center">
+          <div className="w-8 h-8 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin" />
+        </div>
+      }
+    >
+      <LoginContent />
+    </Suspense>
+  );
+}

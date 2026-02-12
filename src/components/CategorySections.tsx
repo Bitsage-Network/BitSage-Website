@@ -2,66 +2,46 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Film, Gamepad2, Code, Rocket, ArrowRight, Layers, ExternalLink } from 'lucide-react';
+import { Film, Gamepad2, Code, Rocket, ArrowRight, Shield, Lock, Eye, EyeOff } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 const categories = [
   {
     id: 'vfx',
-    name: 'Hollywood-Grade VFX',
+    name: 'VFX & Rendering',
     icon: Film,
-    description: 'Professional VFX rendering, compositing, and motion graphics for blockbuster films, TV series, and commercial productions',
+    description: 'Professional VFX rendering with encrypted project files and confidential output delivery.',
     image: '/images/categories/ai-portrait-artistic.jpg',
-    link: '/solutions',
-    items: [
-      { title: 'Film Production', emoji: '🎥', metric: '4K-8K renders' },
-      { title: 'Motion Graphics', emoji: '✨', metric: 'After Effects' },
-      { title: 'Color Grading', emoji: '🎨', metric: 'DaVinci Resolve' },
-      { title: 'VFX Compositing', emoji: '🌟', metric: 'Nuke, Fusion' },
-    ]
+    privacyFeature: 'Encrypted Assets',
+    tools: ['Blender', 'After Effects', 'Nuke', 'DaVinci'],
   },
   {
     id: 'rendering',
-    name: 'Photorealistic Rendering',
+    name: 'Architecture & Product',
     icon: Rocket,
-    description: 'Architectural visualization, product renders, and character animation with cinema-quality photorealism',
+    description: 'Photorealistic renders with IP protection. Your designs never leave secure enclaves.',
     image: '/images/categories/architectural-interior.jpg',
-    link: '/solutions',
-    items: [
-      { title: 'Architecture Viz', emoji: '🏗️', metric: 'Blender, V-Ray' },
-      { title: 'Product Renders', emoji: '💎', metric: 'KeyShot, Octane' },
-      { title: 'Character Animation', emoji: '🦸', metric: 'Maya, Houdini' },
-      { title: 'VR/AR Content', emoji: '🥽', metric: 'Unity, Unreal' },
-    ]
+    privacyFeature: 'IP Protected',
+    tools: ['V-Ray', 'KeyShot', 'Octane', 'Corona'],
   },
   {
     id: 'gaming',
-    name: 'Triple-A Game Assets',
+    name: 'Game Development',
     icon: Gamepad2,
-    description: 'Next-gen game environments, character models, and real-time rendering for Unreal Engine 5 and Unity',
+    description: 'Next-gen asset generation with confidential compute. Protect unreleased game content.',
     image: '/images/categories/game-environment-scifi.jpg',
-    link: '/solutions',
-    items: [
-      { title: 'Environment Design', emoji: '🏙️', metric: 'UE5, Unity' },
-      { title: 'Character Models', emoji: '🦸', metric: 'ZBrush, Maya' },
-      { title: 'Lightmap Baking', emoji: '💡', metric: 'Lumen, Unity' },
-      { title: 'Asset Generation', emoji: '🗿', metric: 'Substance, Houdini' },
-    ]
+    privacyFeature: 'Secure Enclaves',
+    tools: ['UE5', 'Unity', 'Houdini', 'ZBrush'],
   },
   {
     id: 'ai',
-    name: 'AI Model Training & Generation',
+    name: 'AI & ML Training',
     icon: Code,
-    description: 'Large-scale AI training, fine-tuning custom models, and high-quality generative AI outputs',
+    description: 'Train models on sensitive data with zero data exposure. Full privacy guarantees.',
     image: '/images/categories/ai-generated-landscape.jpg',
-    link: '/solutions',
-    items: [
-      { title: 'Model Training', emoji: '🔬', metric: 'PyTorch, TensorFlow' },
-      { title: 'Image Generation', emoji: '🎨', metric: 'Stable Diffusion, DALL-E' },
-      { title: 'Fine-tuning', emoji: '⚙️', metric: 'LoRA, DreamBooth' },
-      { title: 'Batch Inference', emoji: '⚡', metric: 'High throughput' },
-    ]
+    privacyFeature: 'Zero Data Exposure',
+    tools: ['PyTorch', 'TensorFlow', 'JAX', 'ONNX'],
   },
 ];
 
@@ -72,151 +52,138 @@ export function CategorySections() {
   });
 
   return (
-    <section ref={ref} className="py-24 bg-slate-50 relative overflow-hidden">
-      {/* Subtle background texture */}
+    <section ref={ref} className="py-16 bg-slate-900 relative overflow-hidden">
+      {/* Dark background with subtle pattern */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 opacity-[0.02]" style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(16, 185, 129, 0.4) 1px, transparent 0)`,
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"></div>
+        <div className="absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
           backgroundSize: '40px 40px'
         }}></div>
-        <div className="absolute inset-0 bg-gradient-to-br from-white/80 via-slate-50 to-emerald-50/60"></div>
       </div>
-      
+
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
+        {/* Compact Section header */}
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
           <motion.div
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 border border-emerald-200 mb-6"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-500/20 border border-violet-500/30 mb-4"
             initial={{ scale: 0 }}
             whileInView={{ scale: 1 }}
             viewport={{ once: true }}
           >
-            <Layers className="w-4 h-4 text-emerald-600" />
-            <span className="text-sm font-semibold text-emerald-700">USE CASES</span>
+            <Shield className="w-4 h-4 text-violet-400" />
+            <span className="text-sm font-semibold text-violet-300">CONFIDENTIAL COMPUTE</span>
           </motion.div>
-          
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-            Enterprise GPU compute
-            <br />
-            <span className="text-emerald-600">for every industry</span>
+
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            Privacy-First GPU Workloads
           </h2>
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            From Hollywood-grade VFX to enterprise AI training. Power your most demanding workloads with verifiable, scalable GPU infrastructure.
+          <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+            Your data stays encrypted. Your IP stays protected. Run any workload with full confidentiality.
           </p>
         </motion.div>
-        
-        {/* Category cards */}
-        <div className="space-y-12">
+
+        {/* Compact 2x2 Grid */}
+        <div className="grid md:grid-cols-2 gap-6 mb-12">
           {categories.map((category, catIndex) => (
             <motion.div
               key={category.id}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: catIndex * 0.15 }}
-              className="bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-2xl hover:border-emerald-300 hover:-translate-y-1 transition-all duration-500 group"
+              transition={{ duration: 0.5, delay: catIndex * 0.1 }}
+              className="group"
             >
-              <div className="grid lg:grid-cols-5 gap-0">
-                {/* Left: Beautiful image - Takes up 3/5 of the width */}
-                <div className="lg:col-span-3 relative h-80 lg:h-[480px] overflow-hidden bg-slate-100">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <Image
-                      src={category.image}
-                      alt={category.name}
-                      fill
-                      className="object-cover object-center group-hover:scale-110 transition-transform duration-1000"
-                      sizes="(max-width: 1024px) 100vw, 60vw"
-                      priority={catIndex === 0}
-                      style={{
-                        objectPosition: 'center center'
-                      }}
-                    />
-                  </div>
-                  
-                  {/* Enhanced gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/5 to-transparent" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/10" />
-                  
-                  {/* Category badge overlay - Enhanced */}
-                  <div className="absolute top-6 left-6 z-10">
-                    <div className="bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-xl border border-white/20 shadow-lg">
-                      <div className="flex items-center gap-2.5">
-                        <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center">
-                          <category.icon className="w-4 h-4 text-emerald-600" />
-                        </div>
-                        <span className="text-sm font-semibold text-slate-800">{category.name}</span>
-                      </div>
+              <div className="relative h-full bg-slate-800/50 rounded-xl border border-slate-700 hover:border-emerald-500/50 overflow-hidden transition-all duration-300">
+                {/* Image with overlay */}
+                <div className="relative h-40 overflow-hidden">
+                  <Image
+                    src={category.image}
+                    alt={category.name}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent" />
+
+                  {/* Privacy badge */}
+                  <div className="absolute top-3 right-3">
+                    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-violet-500/90 text-white text-xs font-semibold">
+                      <Lock className="w-3 h-3" />
+                      {category.privacyFeature}
                     </div>
                   </div>
-                  
-                  {/* Floating action hint */}
-                  <div className="absolute bottom-6 right-6 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="bg-emerald-600 text-white p-3 rounded-full shadow-lg">
-                      <ExternalLink className="w-5 h-5" />
+
+                  {/* Icon badge */}
+                  <div className="absolute bottom-3 left-3">
+                    <div className="w-10 h-10 rounded-lg bg-slate-900/90 backdrop-blur-sm flex items-center justify-center border border-slate-700">
+                      <category.icon className="w-5 h-5 text-emerald-400" />
                     </div>
                   </div>
                 </div>
-                
-                {/* Right: Content - Takes up 2/5 of the width */}
-                <div className="lg:col-span-2 p-8 lg:p-10 flex flex-col justify-center bg-gradient-to-br from-slate-50/50 to-white">
-                  <div className="mb-6">
-                    <h3 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4 group-hover:text-emerald-700 transition-colors leading-tight">
-                      {category.name}
-                    </h3>
-                    <p className="text-lg text-slate-600 leading-relaxed">
-                      {category.description}
-                    </p>
+
+                {/* Content */}
+                <div className="p-5">
+                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-emerald-300 transition-colors">
+                    {category.name}
+                  </h3>
+                  <p className="text-sm text-slate-400 mb-4 leading-relaxed">
+                    {category.description}
+                  </p>
+
+                  {/* Tools */}
+                  <div className="flex flex-wrap gap-2">
+                    {category.tools.map((tool, i) => (
+                      <span key={i} className="px-2 py-1 text-xs font-medium bg-slate-700/50 text-slate-300 rounded">
+                        {tool}
+                      </span>
+                    ))}
                   </div>
-                  
-                  {/* Popular workflows - Enhanced */}
-                  <div className="mb-8">
-                    <h4 className="text-xs uppercase tracking-wider text-slate-500 mb-5 font-bold flex items-center gap-2">
-                      <div className="w-4 h-px bg-emerald-500"></div>
-                      Popular Workflows
-                    </h4>
-                    <div className="grid grid-cols-1 gap-3">
-                      {category.items.map((item, itemIndex) => (
-                        <motion.div
-                          key={itemIndex}
-                          className="bg-white rounded-xl p-4 hover:bg-emerald-50 hover:border-emerald-200 border border-slate-100 hover:shadow-md transition-all cursor-pointer group/item"
-                          whileHover={{ scale: 1.02, x: 4 }}
-                          whileTap={{ scale: 0.98 }}
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={inView ? { opacity: 1, x: 0 } : {}}
-                          transition={{ duration: 0.4, delay: catIndex * 0.1 + itemIndex * 0.08 }}
-                        >
-                          <div className="flex items-center gap-3">
-                            <div className="text-2xl">{item.emoji}</div>
-                            <div className="flex-1">
-                              <h5 className="text-sm font-semibold text-slate-800 mb-1 group-hover/item:text-emerald-700 transition-colors">
-                                {item.title}
-                              </h5>
-                              <p className="text-xs text-slate-500">{item.metric}</p>
-                            </div>
-                            <ArrowRight className="w-4 h-4 text-slate-400 group-hover/item:text-emerald-600 opacity-0 group-hover/item:opacity-100 transition-all" />
-                          </div>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  {/* Enhanced CTA */}
-                  <Link
-                    href={category.link}
-                    className="inline-flex items-center gap-3 px-8 py-4 bg-emerald-600 text-white rounded-xl font-semibold hover:bg-emerald-700 hover:shadow-lg hover:shadow-emerald-600/25 transition-all group/btn self-start"
-                  >
-                    <span>Explore Solutions</span>
-                    <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
-                  </Link>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
+
+        {/* Privacy Features Row */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.4 }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-4"
+        >
+          {[
+            { icon: Lock, label: 'End-to-End Encryption', desc: 'Data encrypted at rest & transit' },
+            { icon: Shield, label: 'Secure Enclaves', desc: 'TEE-protected execution' },
+            { icon: EyeOff, label: 'Zero Knowledge', desc: 'Providers never see your data' },
+            { icon: Eye, label: 'Audit Trails', desc: 'Cryptographic proof of privacy' },
+          ].map((feature, i) => (
+            <div key={i} className="p-4 rounded-lg bg-slate-800/30 border border-slate-700/50 text-center">
+              <feature.icon className="w-6 h-6 text-violet-400 mx-auto mb-2" />
+              <div className="text-sm font-semibold text-white mb-1">{feature.label}</div>
+              <div className="text-xs text-slate-500">{feature.desc}</div>
+            </div>
+          ))}
+        </motion.div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.5 }}
+          className="text-center mt-10"
+        >
+          <Link
+            href="/obelysk"
+            className="inline-flex items-center gap-2 text-violet-400 font-semibold hover:text-violet-300 transition-colors group"
+          >
+            Learn about our privacy architecture
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

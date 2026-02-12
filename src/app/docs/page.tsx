@@ -1,618 +1,416 @@
 import { Metadata } from 'next';
 import { PublicPageLayout } from '@/components/PublicPageLayout';
-import { BookOpen, FileText, Code, Users, ExternalLink, Download, Eye, Shield, Zap } from 'lucide-react';
+import {
+  BookOpen, FileText, Code, Users, ExternalLink, Download,
+  Shield, Zap, Rocket, ArrowRight, Layers, Terminal,
+  Cpu, Globe, Lock, GitBranch
+} from 'lucide-react';
 import Link from 'next/link';
+import { CopyButton } from './CopyButton';
 
 export const metadata: Metadata = {
   title: 'Documentation - BitSage Network',
   description: 'Comprehensive API reference, guides, and technical documentation for BitSage Network.',
 };
 
+const codeExample = `from bitsage import BitSageClient
+
+# Initialize client
+client = BitSageClient(api_key="your-api-key")
+
+# Submit a GPU job
+job = client.jobs.submit(
+    type="render",
+    input={"scene": "scene.blend", "frames": [1, 100]},
+    gpu="RTX-4090",
+    verification="zk-proof"
+)
+
+# Monitor progress
+for update in client.jobs.monitor(job.id):
+    print(f"Progress: {update.progress}%")
+
+# Get verified result
+result = client.jobs.get_result(job.id)
+print(f"Proof: {result.proof_hash}")`;
+
+const quickLinks = [
+  {
+    title: 'Getting Started',
+    description: 'Set up your environment and submit your first job',
+    href: '/docs/getting-started',
+    icon: Rocket,
+    color: 'emerald',
+  },
+  {
+    title: 'Workflow Templates',
+    description: 'Pre-built templates for common GPU workloads',
+    href: '/docs/workflows',
+    icon: Layers,
+    color: 'cyan',
+  },
+  {
+    title: 'Architecture Overview',
+    description: 'Understand the four-layer network architecture',
+    href: '/docs/architecture-overview',
+    icon: GitBranch,
+    color: 'violet',
+  },
+  {
+    title: 'Benchmarks & TCO',
+    description: 'Performance benchmarks and cost analysis',
+    href: '/docs/benchmark-tco-brief',
+    icon: Zap,
+    color: 'amber',
+  },
+];
+
+const docSections = [
+  {
+    title: 'Platform',
+    icon: Globe,
+    items: [
+      { label: 'Architecture Overview', href: '/docs/architecture-overview' },
+      { label: 'Network Status', href: '/network' },
+      { label: 'Security Model', href: '/manifesto#security' },
+      { label: 'Verification System', href: '/manifesto#verification' },
+    ],
+  },
+  {
+    title: 'Developers',
+    icon: Code,
+    items: [
+      { label: 'Quick Start Guide', href: '/docs/getting-started' },
+      { label: 'API Reference', href: '/docs/api-reference' },
+      { label: 'SDKs & Libraries', href: '/docs/sdks' },
+      { label: 'Workflow Templates', href: '/docs/workflows' },
+    ],
+  },
+  {
+    title: 'Providers',
+    icon: Cpu,
+    items: [
+      { label: 'Become a Provider', href: '/providers' },
+      { label: 'Node Setup', href: '/docs/node-setup' },
+      { label: 'Earnings & Rewards', href: '/docs/provider-economics' },
+      { label: 'Validator Dashboard', href: 'https://validators.bitsage.network', external: true },
+    ],
+  },
+  {
+    title: 'Resources',
+    icon: FileText,
+    items: [
+      { label: 'Whitepaper / Manifesto', href: '/manifesto' },
+      { label: 'Blog', href: '/blog' },
+      { label: 'GitHub', href: 'https://github.com/Bitsage-Network', external: true },
+      { label: 'Discord Community', href: 'https://discord.gg/QAXDpa7F5K', external: true },
+    ],
+  },
+];
+
+const colorMap: Record<string, { bg: string; text: string; border: string }> = {
+  emerald: { bg: 'bg-emerald-500/20', text: 'text-emerald-400', border: 'border-emerald-500/30' },
+  cyan: { bg: 'bg-cyan-500/20', text: 'text-cyan-400', border: 'border-cyan-500/30' },
+  violet: { bg: 'bg-violet-500/20', text: 'text-violet-400', border: 'border-violet-500/30' },
+  amber: { bg: 'bg-amber-500/20', text: 'text-amber-400', border: 'border-amber-500/30' },
+};
+
 export default function DocsPage() {
   return (
-    <PublicPageLayout className="bg-slate-50">
+    <PublicPageLayout className="bg-slate-950">
       {/* Hero Section */}
-      <section className="bg-slate-900 text-white relative overflow-hidden">
-        {/* Background pattern */}
+      <section className="relative pt-32 pb-16 overflow-hidden">
         <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-emerald-950/10 to-slate-950" />
           <div className="absolute inset-0 opacity-[0.03]" style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(16, 185, 129, 0.4) 1px, transparent 0)`,
-            backgroundSize: '48px 48px'
-          }}></div>
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-900/20"></div>
+            backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+            backgroundSize: '60px 60px'
+          }} />
         </div>
 
-        <div className="relative z-10 py-24">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-8">
-                <BookOpen className="w-4 h-4 text-emerald-400" />
-                <span className="text-sm font-semibold text-emerald-300">DOCUMENTATION</span>
-              </div>
-
-              <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                <span className="text-white">Technical</span>
-                <br />
-                <span className="text-emerald-400">Documentation</span>
-              </h1>
-              <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
-                Everything you need to build on BitSage Network - from architecture overviews
-                to comprehensive API references and enterprise integrations.
-              </p>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 mb-6">
+              <BookOpen className="w-4 h-4" />
+              <span className="text-sm font-semibold">DOCUMENTATION</span>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Manifesto Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 border border-slate-200 mb-8">
-              <FileText className="w-4 h-4 text-slate-600" />
-              <span className="text-sm font-semibold text-slate-700">WHITEPAPER</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              The BitSage Manifesto
-            </h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-              Comprehensive technical whitepaper covering the vision, architecture, and mathematical foundations
-              of verifiable GPU compute on the decentralized network.
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Build with BitSage
+            </h1>
+
+            <p className="text-lg text-slate-400 mb-8">
+              Everything you need to integrate verifiable GPU compute into your applications.
+              From quick start guides to comprehensive API references.
             </p>
-          </div>
 
-          <div className="grid lg:grid-cols-3 gap-8">
-            {/* Manifesto Overview */}
-            <div className="lg:col-span-2 space-y-8">
-              <div className="bg-gradient-to-br from-slate-50 to-white rounded-2xl p-8 border border-slate-200">
-                <div className="flex items-start gap-6">
-                  <div className="w-16 h-16 bg-emerald-100 rounded-xl flex items-center justify-center">
-                    <FileText className="w-8 h-8 text-emerald-600" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-2xl font-bold text-slate-900 mb-4">Technical Vision & Architecture</h3>
-                    <p className="text-slate-600 mb-6 leading-relaxed">
-                      Dive deep into the mathematical foundations, zero-knowledge proof systems, and
-                      decentralized architecture that powers verifiable GPU compute at scale.
-                    </p>
-                    <div className="grid sm:grid-cols-2 gap-4 mb-6">
-                      <div className="flex items-center gap-3">
-                        <Shield className="w-5 h-5 text-emerald-500" />
-                        <span className="text-sm text-slate-700">ZK Proof Systems</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <Zap className="w-5 h-5 text-emerald-500" />
-                        <span className="text-sm text-slate-700">Mathematical Foundations</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <Users className="w-5 h-5 text-emerald-500" />
-                        <span className="text-sm text-slate-700">Network Economics</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <BookOpen className="w-5 h-5 text-emerald-500" />
-                        <span className="text-sm text-slate-700">Scalability Architecture</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Key Sections Preview */}
-              <div className="grid sm:grid-cols-2 gap-6">
-                <div className="bg-white rounded-xl p-6 border border-slate-200 hover:shadow-lg transition-shadow">
-                  <h4 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
-                    <Eye className="w-4 h-4 text-emerald-500" />
-                    Executive Summary
-                  </h4>
-                  <p className="text-slate-600 text-sm">
-                    High-level overview of the BitSage vision and technological approach.
-                  </p>
-                </div>
-                <div className="bg-white rounded-xl p-6 border border-slate-200 hover:shadow-lg transition-shadow">
-                  <h4 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
-                    <Shield className="w-4 h-4 text-emerald-500" />
-                    Security Model
-                  </h4>
-                  <p className="text-slate-600 text-sm">
-                    Cryptographic foundations and zero-knowledge verification systems.
-                  </p>
-                </div>
-                <div className="bg-white rounded-xl p-6 border border-slate-200 hover:shadow-lg transition-shadow">
-                  <h4 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
-                    <Zap className="w-4 h-4 text-emerald-500" />
-                    Tokenomics
-                  </h4>
-                  <p className="text-slate-600 text-sm">
-                    Economic incentives, governance, and network participation models.
-                  </p>
-                </div>
-                <div className="bg-white rounded-xl p-6 border border-slate-200 hover:shadow-lg transition-shadow">
-                  <h4 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
-                    <BookOpen className="w-4 h-4 text-emerald-500" />
-                    Technical Roadmap
-                  </h4>
-                  <p className="text-slate-600 text-sm">
-                    Development phases and future network capabilities.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Manifesto Actions */}
-            <div className="space-y-6">
-              <div className="bg-slate-900 text-white rounded-2xl p-8">
-                <h3 className="text-xl font-bold mb-6">Read the Manifesto</h3>
-
-                <div className="space-y-4">
-                  <Link
-                    href="/manifesto"
-                    className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold transition-all hover:shadow-lg hover:shadow-emerald-600/25"
-                  >
-                    <Eye className="w-5 h-5" />
-                    Review Online
-                    <ExternalLink className="w-4 h-4" />
-                  </Link>
-
-                  <a
-                    href="https://github.com/Bitsage-Network/BitSage-Knowledge-Base"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full flex items-center justify-center gap-3 px-6 py-4 border border-slate-700 hover:border-emerald-500 text-slate-300 hover:text-emerald-400 rounded-xl font-semibold transition-all"
-                  >
-                    <Download className="w-5 h-5" />
-                    Download PDF
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
-                </div>
-
-                <div className="mt-6 pt-6 border-t border-slate-800">
-                  <div className="text-xs text-slate-400 space-y-1">
-                    <div>• Comprehensive technical documentation</div>
-                    <div>• Mathematical proof systems</div>
-                    <div>• Network architecture details</div>
-                    <div>• Economic models & incentives</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Quick Links */}
-              <div className="bg-white rounded-xl p-6 border border-slate-200">
-                <h4 className="font-semibold text-slate-900 mb-4">Quick Access</h4>
-                <div className="space-y-3">
-                  <Link href="/docs/architecture-overview" className="flex items-center gap-3 text-slate-600 hover:text-emerald-600 transition-colors">
-                    <BookOpen className="w-4 h-4" />
-                    <span className="text-sm">Architecture Overview</span>
-                  </Link>
-                  <Link href="/docs/benchmark-tco-brief" className="flex items-center gap-3 text-slate-600 hover:text-emerald-600 transition-colors">
-                    <FileText className="w-4 h-4" />
-                    <span className="text-sm">TCO Analysis</span>
-                  </Link>
-                  <a href="https://github.com/Bitsage-Network" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-slate-600 hover:text-emerald-600 transition-colors">
-                    <ExternalLink className="w-4 h-4" />
-                    <span className="text-sm">GitHub Repository</span>
-                  </a>
-                </div>
+            {/* Search placeholder */}
+            <div className="max-w-xl mx-auto">
+              <div className="relative">
+                <Terminal className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                <input
+                  type="text"
+                  placeholder="Search documentation..."
+                  className="w-full pl-12 pr-4 py-4 bg-slate-800/50 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Quick Start */}
-      <section className="py-24 bg-slate-50">
+      {/* Start Here Banner */}
+      <section className="py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 mb-8">
-              <Zap className="w-4 h-4 text-slate-600" />
-              <span className="text-sm font-semibold text-slate-700">GET STARTED</span>
+          <Link href="/docs/getting-started" className="block group">
+            <div className="bg-gradient-to-r from-emerald-600 to-cyan-600 rounded-2xl p-6 md:p-8 hover:from-emerald-500 hover:to-cyan-500 transition-all">
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <Rocket className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h2 className="text-xl md:text-2xl font-bold text-white">New to BitSage? Start Here</h2>
+                    <p className="text-emerald-100">Get up and running with your first GPU job in minutes</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 text-white font-semibold group-hover:gap-3 transition-all">
+                  <span>Get Started</span>
+                  <ArrowRight className="w-5 h-5" />
+                </div>
+              </div>
             </div>
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Start Building</h2>
-            <p className="text-lg text-slate-600">Choose your path to start building with BitSage</p>
-          </div>
+          </Link>
+        </div>
+      </section>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="group bg-white p-8 rounded-2xl border border-slate-200 hover:border-emerald-300 hover:shadow-xl transition-all duration-300">
-              <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
-                <Zap className="w-6 h-6 text-emerald-600 group-hover:text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-4">Quick Start Guide</h3>
-              <p className="text-slate-600 mb-6 leading-relaxed">Get up and running with your first job in under 5 minutes with our interactive tutorial.</p>
-              <div className="space-y-3 mb-8">
-                <div className="flex items-center gap-3 text-sm text-slate-600">
-                  <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></div>
-                  <span>Account setup & authentication</span>
-                </div>
-                <div className="flex items-center gap-3 text-sm text-slate-600">
-                  <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></div>
-                  <span>API key generation</span>
-                </div>
-                <div className="flex items-center gap-3 text-sm text-slate-600">
-                  <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></div>
-                  <span>First job submission</span>
-                </div>
-                <div className="flex items-center gap-3 text-sm text-slate-600">
-                  <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></div>
-                  <span>Result verification</span>
-                </div>
-              </div>
-              <Link href="/docs/getting-started" className="w-full inline-flex items-center justify-center px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold transition-all hover:shadow-lg hover:shadow-emerald-600/25">
-                Start Tutorial
-              </Link>
-            </div>
-
-            <div className="group bg-white p-8 rounded-2xl border border-slate-200 hover:border-emerald-300 hover:shadow-xl transition-all duration-300">
-              <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
-                <Code className="w-6 h-6 text-emerald-600 group-hover:text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-4">API Reference</h3>
-              <p className="text-slate-600 mb-6 leading-relaxed">Comprehensive documentation for all BitSage APIs, endpoints, and integration patterns.</p>
-              <div className="space-y-3 mb-8">
-                <div className="flex items-center gap-3 text-sm text-slate-600">
-                  <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></div>
-                  <span>REST API endpoints</span>
-                </div>
-                <div className="flex items-center gap-3 text-sm text-slate-600">
-                  <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></div>
-                  <span>WebSocket connections</span>
-                </div>
-                <div className="flex items-center gap-3 text-sm text-slate-600">
-                  <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></div>
-                  <span>Authentication methods</span>
-                </div>
-                <div className="flex items-center gap-3 text-sm text-slate-600">
-                  <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></div>
-                  <span>Response schemas & SDKs</span>
-                </div>
-              </div>
-              <Link href="/docs/api-reference" className="w-full inline-flex items-center justify-center px-6 py-3 border-2 border-slate-300 hover:border-emerald-500 text-slate-700 hover:text-emerald-600 rounded-xl font-semibold transition-all">
-                View API Docs
-              </Link>
-            </div>
-
-            <div className="group bg-white p-8 rounded-2xl border border-slate-200 hover:border-emerald-300 hover:shadow-xl transition-all duration-300">
-              <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
-                <Download className="w-6 h-6 text-emerald-600 group-hover:text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-4">SDKs & Tools</h3>
-              <p className="text-slate-600 mb-6 leading-relaxed">Official SDKs, command-line tools, and Docker images for seamless integration.</p>
-              <div className="space-y-3 mb-8">
-                <div className="flex items-center gap-3 text-sm text-slate-600">
-                  <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></div>
-                  <span>Python & Node.js SDKs</span>
-                </div>
-                <div className="flex items-center gap-3 text-sm text-slate-600">
-                  <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></div>
-                  <span>CLI tools & Docker images</span>
-                </div>
-                <div className="flex items-center gap-3 text-sm text-slate-600">
-                  <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></div>
-                  <span>Integration examples</span>
-                </div>
-                <div className="flex items-center gap-3 text-sm text-slate-600">
-                  <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></div>
-                  <span>Enterprise connectors</span>
-                </div>
-              </div>
-              <Link href="/docs/sdks" className="w-full inline-flex items-center justify-center px-6 py-3 border-2 border-slate-300 hover:border-emerald-500 text-slate-700 hover:text-emerald-600 rounded-xl font-semibold transition-all">
-                Download SDKs
-              </Link>
-            </div>
+      {/* Quick Links Grid */}
+      <section className="py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {quickLinks.map((link) => {
+              const colors = colorMap[link.color];
+              return (
+                <Link
+                  key={link.title}
+                  href={link.href}
+                  className="group p-6 bg-slate-800/50 border border-slate-700/50 rounded-xl hover:border-slate-600 transition-all"
+                >
+                  <div className={`w-10 h-10 ${colors.bg} ${colors.border} border rounded-lg flex items-center justify-center mb-4`}>
+                    <link.icon className={`w-5 h-5 ${colors.text}`} />
+                  </div>
+                  <h3 className="font-semibold text-white mb-1 group-hover:text-emerald-400 transition-colors">
+                    {link.title}
+                  </h3>
+                  <p className="text-sm text-slate-400">{link.description}</p>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Documentation Sections */}
-      <section className="py-24 bg-slate-100">
+      {/* Main Documentation Grid */}
+      <section className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 mb-8">
-              <BookOpen className="w-4 h-4 text-slate-600" />
-              <span className="text-sm font-semibold text-slate-700">DOCUMENTATION</span>
-            </div>
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Comprehensive Documentation</h2>
-            <p className="text-lg text-slate-600">Detailed guides and technical specifications for every aspect of the platform</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white p-8 rounded-2xl border border-slate-200 hover:shadow-lg transition-all">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
-                  <Shield className="w-6 h-6 text-emerald-600" />
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {docSections.map((section) => (
+              <div key={section.title} className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <section.icon className="w-5 h-5 text-emerald-400" />
+                  <h3 className="font-semibold text-white">{section.title}</h3>
                 </div>
-                <div>
-                  <h3 className="text-xl font-bold text-slate-900">Platform Architecture</h3>
-                  <p className="text-slate-600">Four-layer verifiable compute infrastructure</p>
-                </div>
+                <ul className="space-y-2">
+                  {section.items.map((item) => (
+                    <li key={item.label}>
+                      <Link
+                        href={item.href}
+                        target={item.external ? '_blank' : undefined}
+                        rel={item.external ? 'noopener noreferrer' : undefined}
+                        className="flex items-center gap-2 text-sm text-slate-400 hover:text-emerald-400 transition-colors py-1"
+                      >
+                        <span>{item.label}</span>
+                        {item.external && <ExternalLink className="w-3 h-3" />}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <div className="space-y-4">
-                <Link href="/docs/architecture-overview" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors group">
-                  <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
-                  <span className="text-slate-700 group-hover:text-emerald-600 font-medium">Sage Cloud - Application Layer</span>
-                  <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity ml-auto" />
-                </Link>
-                <Link href="/docs/architecture-overview" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors group">
-                  <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
-                  <span className="text-slate-700 group-hover:text-emerald-600 font-medium">Sage Mesh - Network Layer</span>
-                  <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity ml-auto" />
-                </Link>
-                <Link href="/docs/architecture-overview" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors group">
-                  <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
-                  <span className="text-slate-700 group-hover:text-emerald-600 font-medium">Sage Forge - Node Layer</span>
-                  <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity ml-auto" />
-                </Link>
-                <Link href="/docs/architecture-overview" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors group">
-                  <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
-                  <span className="text-slate-700 group-hover:text-emerald-600 font-medium">Sage Proof - Verification Layer</span>
-                  <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity ml-auto" />
-                </Link>
-              </div>
-            </div>
-
-            <div className="bg-white p-8 rounded-2xl border border-slate-200 hover:shadow-lg transition-all">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
-                  <Zap className="w-6 h-6 text-emerald-600" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-slate-900">Job Management</h3>
-                  <p className="text-slate-600">End-to-end job lifecycle and monitoring</p>
-                </div>
-              </div>
-              <div className="space-y-4">
-                <Link href="/docs/api-reference" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors group">
-                  <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
-                  <span className="text-slate-700 group-hover:text-emerald-600 font-medium">Job Submission & APIs</span>
-                  <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity ml-auto" />
-                </Link>
-                <Link href="/docs/api-reference" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors group">
-                  <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
-                  <span className="text-slate-700 group-hover:text-emerald-600 font-medium">Monitoring & Status Updates</span>
-                  <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity ml-auto" />
-                </Link>
-                <Link href="/docs/api-reference" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors group">
-                  <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
-                  <span className="text-slate-700 group-hover:text-emerald-600 font-medium">Result Verification</span>
-                  <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity ml-auto" />
-                </Link>
-                <Link href="/docs/api-reference" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors group">
-                  <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
-                  <span className="text-slate-700 group-hover:text-emerald-600 font-medium">Error Handling & Troubleshooting</span>
-                  <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity ml-auto" />
-                </Link>
-              </div>
-            </div>
-
-            <div className="bg-white p-8 rounded-2xl border border-slate-200 hover:shadow-lg transition-all">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
-                  <Shield className="w-6 h-6 text-emerald-600" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-slate-900">Security & Privacy</h3>
-                  <p className="text-slate-600">Cryptographic foundations and compliance</p>
-                </div>
-              </div>
-              <div className="space-y-4">
-                <Link href="/docs/security" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors group">
-                  <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
-                  <span className="text-slate-700 group-hover:text-emerald-600 font-medium">Authentication & Access Control</span>
-                  <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity ml-auto" />
-                </Link>
-                <Link href="/docs/security" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors group">
-                  <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
-                  <span className="text-slate-700 group-hover:text-emerald-600 font-medium">End-to-End Encryption</span>
-                  <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity ml-auto" />
-                </Link>
-                <Link href="/docs/security" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors group">
-                  <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
-                  <span className="text-slate-700 group-hover:text-emerald-600 font-medium">Zero-Knowledge Proofs</span>
-                  <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity ml-auto" />
-                </Link>
-                <Link href="/docs/security" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors group">
-                  <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
-                  <span className="text-slate-700 group-hover:text-emerald-600 font-medium">Compliance & Certifications</span>
-                  <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity ml-auto" />
-                </Link>
-              </div>
-            </div>
-
-            <div className="bg-white p-8 rounded-2xl border border-slate-200 hover:shadow-lg transition-all">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
-                  <Users className="w-6 h-6 text-emerald-600" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-slate-900">Node Operations</h3>
-                  <p className="text-slate-600">Provider infrastructure and management</p>
-                </div>
-              </div>
-              <div className="space-y-4">
-                <Link href="/docs/providers" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors group">
-                  <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
-                  <span className="text-slate-700 group-hover:text-emerald-600 font-medium">Node Setup & Configuration</span>
-                  <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity ml-auto" />
-                </Link>
-                <Link href="/docs/providers" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors group">
-                  <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
-                  <span className="text-slate-700 group-hover:text-emerald-600 font-medium">Resource Management</span>
-                  <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity ml-auto" />
-                </Link>
-                <Link href="/network" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors group">
-                  <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
-                  <span className="text-slate-700 group-hover:text-emerald-600 font-medium">Network Monitoring</span>
-                  <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity ml-auto" />
-                </Link>
-                <Link href="/docs/troubleshooting" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors group">
-                  <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
-                  <span className="text-slate-700 group-hover:text-emerald-600 font-medium">Troubleshooting & Support</span>
-                  <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity ml-auto" />
-                </Link>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Code Examples */}
-      <section className="py-24 bg-white">
+      {/* Code Example */}
+      <section className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 border border-slate-200 mb-8">
-              <Code className="w-4 h-4 text-slate-600" />
-              <span className="text-sm font-semibold text-slate-700">CODE EXAMPLES</span>
+          <div className="grid lg:grid-cols-2 gap-8 items-center">
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+                Simple, Powerful API
+              </h2>
+              <p className="text-slate-400 mb-6">
+                Submit GPU jobs with just a few lines of code. Our Python SDK handles authentication,
+                job scheduling, monitoring, and result verification automatically.
+              </p>
+              <ul className="space-y-3 mb-8">
+                <li className="flex items-center gap-3 text-slate-300">
+                  <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
+                  OpenAI-compatible API for inference
+                </li>
+                <li className="flex items-center gap-3 text-slate-300">
+                  <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
+                  Real-time job monitoring via WebSocket
+                </li>
+                <li className="flex items-center gap-3 text-slate-300">
+                  <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
+                  Cryptographic verification of results
+                </li>
+                <li className="flex items-center gap-3 text-slate-300">
+                  <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
+                  Python, Node.js, and CLI support
+                </li>
+              </ul>
+              <div className="flex flex-wrap gap-4">
+                <Link
+                  href="/docs/api-reference"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold transition-all"
+                >
+                  <Code className="w-4 h-4" />
+                  API Reference
+                </Link>
+                <Link
+                  href="/docs/sdks"
+                  className="inline-flex items-center gap-2 px-6 py-3 border border-slate-700 hover:border-slate-600 text-slate-300 hover:text-white rounded-xl font-medium transition-all"
+                >
+                  <Download className="w-4 h-4" />
+                  Download SDKs
+                </Link>
+              </div>
             </div>
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Ready-to-Use Code</h2>
-            <p className="text-lg text-slate-600">Production-ready code snippets for common use cases and integrations</p>
-          </div>
 
-          <div className="bg-slate-900 rounded-2xl overflow-hidden border border-slate-200">
-            <div className="p-8 border-b border-slate-800">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-2">Submit a GPU Compute Job</h3>
-                  <p className="text-slate-400">Python SDK example for rendering workloads</p>
+            <div className="bg-slate-900 rounded-xl border border-slate-700/50 overflow-hidden">
+              <div className="flex items-center justify-between px-4 py-3 border-b border-slate-700/50">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500/50" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
+                  <div className="w-3 h-3 rounded-full bg-green-500/50" />
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="px-3 py-1 bg-emerald-500/20 rounded-full">
-                    <span className="text-xs font-medium text-emerald-400">Python</span>
-                  </div>
-                  <button className="p-2 hover:bg-slate-800 rounded-lg transition-colors">
-                    <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                    </svg>
-                  </button>
+                  <span className="text-xs text-slate-500">main.py</span>
+                  <CopyButton code={codeExample} />
                 </div>
               </div>
-            </div>
-            <div className="p-8">
-              <pre className="text-sm text-slate-100 overflow-x-auto">{`import asyncio
-from bitsage import BitSageClient
-
-async def main():
-    # Initialize client with API key
-    client = BitSageClient(api_key="your-api-key")
-
-    # Submit GPU compute job
-    job = await client.jobs.submit(
-        type="render",
-        input={
-            "scene": "https://storage.example.com/scene.blend",
-            "frames": [1, 100],
-            "resolution": [1920, 1080],
-            "engine": "blender"
-        },
-        resources={
-            "gpu": "RTX-4090",
-            "memory": "16GB",
-            "storage": "100GB"
-        },
-        verification="zk-proof"
-    )
-
-    print(f"Job submitted: {job.id}")
-    print("Estimated cost: $" + str(job.cost_estimate))
-    print(f"Expected completion: {job.eta}")
-
-    # Monitor job progress
-    async for update in client.jobs.monitor(job.id):
-        print(f"Progress: {update.progress}% - {update.status}")
-
-    # Get final result with cryptographic proof
-    result = await client.jobs.get_result(job.id)
-    print(f"Result verified with proof: {result.proof_hash}")
-
-if __name__ == "__main__":
-    asyncio.run(main())`}</pre>
-            </div>
-          </div>
-
-          <div className="mt-12 text-center">
-            <p className="text-slate-600 mb-6">
-              View complete API documentation and additional code examples
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/docs/api-reference" className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold transition-all hover:shadow-lg hover:shadow-emerald-600/25">
-                <BookOpen className="w-4 h-4" />
-                API Reference
-              </Link>
-              <Link href="/docs/sdks" className="inline-flex items-center gap-2 px-6 py-3 border-2 border-slate-300 hover:border-emerald-500 text-slate-700 hover:text-emerald-600 rounded-xl font-semibold transition-all">
-                <Download className="w-4 h-4" />
-                Download SDKs
-              </Link>
+              <pre className="p-4 text-sm text-slate-300 overflow-x-auto">
+                <code>{codeExample}</code>
+              </pre>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Support & Community */}
-      <section className="py-24 bg-slate-100">
+      {/* Whitepaper Section */}
+      <section className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 mb-8">
-              <Users className="w-4 h-4 text-slate-600" />
-              <span className="text-sm font-semibold text-slate-700">COMMUNITY</span>
+          <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700/50 rounded-2xl p-8 md:p-12">
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/20 border border-violet-500/30 text-violet-300 text-sm mb-4">
+                  <FileText className="w-3 h-3" />
+                  WHITEPAPER
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+                  The BitSage Manifesto
+                </h2>
+                <p className="text-slate-400 mb-6">
+                  Deep dive into the technical architecture, cryptographic foundations,
+                  economic models, and roadmap for verifiable GPU compute.
+                </p>
+                <div className="grid grid-cols-2 gap-4 mb-6">
+                  <div className="flex items-center gap-2 text-sm text-slate-300">
+                    <Shield className="w-4 h-4 text-violet-400" />
+                    ZK Proof Systems
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-slate-300">
+                    <Lock className="w-4 h-4 text-violet-400" />
+                    Security Model
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-slate-300">
+                    <Zap className="w-4 h-4 text-violet-400" />
+                    Tokenomics
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-slate-300">
+                    <GitBranch className="w-4 h-4 text-violet-400" />
+                    Architecture
+                  </div>
+                </div>
+                <Link
+                  href="/manifesto"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-violet-600 hover:bg-violet-700 text-white rounded-xl font-semibold transition-all"
+                >
+                  Read Manifesto
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+              <div className="hidden md:flex items-center justify-center">
+                <div className="w-48 h-64 bg-gradient-to-br from-violet-500/20 to-purple-500/20 border border-violet-500/30 rounded-xl flex items-center justify-center">
+                  <FileText className="w-16 h-16 text-violet-400/50" />
+                </div>
+              </div>
             </div>
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Get Help & Connect</h2>
-            <p className="text-lg text-slate-600">Join our vibrant community of developers, creators, and GPU providers</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Community Section */}
+      <section className="py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold text-white mb-2">Get Help & Connect</h2>
+            <p className="text-slate-400">Join our community of developers and GPU providers</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="group bg-white p-8 rounded-2xl border border-slate-200 hover:border-emerald-300 hover:shadow-xl transition-all duration-300 text-center">
-              <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
-                <svg className="w-8 h-8 text-emerald-600 group-hover:text-white" viewBox="0 0 24 24" fill="currentColor">
+          <div className="grid md:grid-cols-3 gap-6">
+            <a
+              href="https://discord.gg/QAXDpa7F5K"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group p-6 bg-slate-800/50 border border-slate-700/50 rounded-xl hover:border-[#5865F2]/50 transition-all text-center"
+            >
+              <div className="w-12 h-12 bg-[#5865F2]/20 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-[#5865F2]/30 transition-colors">
+                <svg className="w-6 h-6 text-[#5865F2]" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-4">Discord Community</h3>
-              <p className="text-slate-600 mb-8 leading-relaxed">
-                Real-time chat with developers, get help from AI assistants, and stay updated
-                with the latest BitSage developments and announcements.
-              </p>
-              <a
-                href="https://discord.gg/QAXDpa7F5K"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-8 py-3 bg-[#5865F2] hover:bg-[#4752C4] text-white rounded-xl font-semibold transition-all hover:shadow-lg hover:shadow-[#5865F2]/25"
-              >
-                <span>Join Discord</span>
-                <ExternalLink className="w-4 h-4" />
-              </a>
-            </div>
+              <h3 className="font-semibold text-white mb-1">Discord</h3>
+              <p className="text-sm text-slate-400">Chat with the community</p>
+            </a>
 
-            <div className="group bg-white p-8 rounded-2xl border border-slate-200 hover:border-emerald-300 hover:shadow-xl transition-all duration-300 text-center">
-              <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
-                <svg className="w-8 h-8 text-emerald-600 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            <a
+              href="https://github.com/Bitsage-Network"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group p-6 bg-slate-800/50 border border-slate-700/50 rounded-xl hover:border-slate-500 transition-all text-center"
+            >
+              <div className="w-12 h-12 bg-slate-700/50 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-slate-600/50 transition-colors">
+                <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-4">Knowledge Base</h3>
-              <p className="text-slate-600 mb-8 leading-relaxed">
-                Explore our comprehensive technical documentation, whitepapers, and
-                detailed guides covering all aspects of the BitSage platform.
-              </p>
-              <Link
-                href="/manifesto"
-                className="inline-flex items-center gap-2 px-8 py-3 border-2 border-slate-300 hover:border-emerald-500 text-slate-700 hover:text-emerald-600 rounded-xl font-semibold transition-all"
-              >
-                <span>Read Manifesto</span>
-                <ExternalLink className="w-4 h-4" />
-              </Link>
-            </div>
+              <h3 className="font-semibold text-white mb-1">GitHub</h3>
+              <p className="text-sm text-slate-400">View source & contribute</p>
+            </a>
 
-            <div className="group bg-white p-8 rounded-2xl border border-slate-200 hover:border-emerald-300 hover:shadow-xl transition-all duration-300 text-center">
-              <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
-                <Shield className="w-8 h-8 text-emerald-600 group-hover:text-white" />
+            <Link
+              href="/company#contact"
+              className="group p-6 bg-slate-800/50 border border-slate-700/50 rounded-xl hover:border-emerald-500/50 transition-all text-center"
+            >
+              <div className="w-12 h-12 bg-emerald-500/20 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-emerald-500/30 transition-colors">
+                <Users className="w-6 h-6 text-emerald-400" />
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-4">Enterprise Support</h3>
-              <p className="text-slate-600 mb-8 leading-relaxed">
-                Dedicated support for enterprise customers with SLA guarantees,
-                priority assistance, and direct access to our technical team.
-              </p>
-              <Link href="/company#contact" className="inline-flex items-center gap-2 px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold transition-all hover:shadow-lg hover:shadow-emerald-600/25">
-                <span>Contact Support</span>
-                <ExternalLink className="w-4 h-4" />
-              </Link>
-            </div>
+              <h3 className="font-semibold text-white mb-1">Enterprise Support</h3>
+              <p className="text-sm text-slate-400">Get dedicated assistance</p>
+            </Link>
           </div>
         </div>
       </section>
