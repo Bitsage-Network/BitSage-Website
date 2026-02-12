@@ -1,53 +1,56 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Globe, Network, Server, Shield, Boxes } from 'lucide-react';
-import Image from 'next/image';
+import { Globe, Server, Shield, Lock, Wallet, Sparkles, ExternalLink, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
-const features = [
+const products = [
   {
     icon: Globe,
-    title: 'Sage Cloud',
-    description: 'Web & API entry point for jobs. Submit, monitor, and manage your GPU workloads through our unified interface and developer-friendly APIs.',
-    image: '/images/platform/sage-cloud-dashboard.svg',
-    imageAlt: 'Sage Cloud Dashboard Interface'
-  },
-  {
-    icon: Network,
-    title: 'Sage Mesh',
-    description: 'Global P2P network fabric connecting thousands of GPU providers worldwide. Decentralized routing and intelligent job distribution.',
-    image: '/images/platform/sage-mesh-architecture.png',
-    imageAlt: 'Sage Mesh Network Architecture'
+    title: 'Enterprise Marketplace',
+    description: 'Production-grade GPU compute for enterprises. SOC2 compliant, SLA-backed infrastructure without the crypto complexity.',
+    href: '/marketplace',
+    external: false,
+    badge: 'Enterprise',
+    badgeColor: 'bg-blue-500',
+    features: ['99.9% Uptime SLA', 'Fiat Payments', 'Dedicated Support'],
   },
   {
     icon: Server,
-    title: 'Sage Forge',
-    description: 'Node execution environment where your jobs run. Containerized workloads with GPU access, secure isolation, and real-time monitoring.',
-    image: '/images/platform/sage-forge-desktop.svg',
-    imageAlt: 'Sage Forge Desktop Application'
+    title: 'Validator Network',
+    description: 'Full crypto DEGEN mode. Stake, validate, and earn from the decentralized compute network. Max APY for true believers.',
+    href: '/validators',
+    external: false,
+    badge: 'Crypto',
+    badgeColor: 'bg-amber-500',
+    features: ['80% Revenue Share', 'Token Rewards', 'Governance Rights'],
   },
   {
-    icon: Shield,
-    title: 'Sage Proof',
-    description: 'ZK verification system providing cryptographic proof of execution. Every job comes with verifiable attestations and tamper-proof results.',
-    image: '/images/platform/sage-proof-math.svg',
-    imageAlt: 'Sage Proof Mathematical Verification'
+    icon: Lock,
+    title: 'Obelysk Protocol',
+    description: 'Privacy-enabled DeFi on the Stark Curve. Dark pool trading, privacy wallets, private staking, and encrypted sending.',
+    href: '/obelysk',
+    external: false,
+    badge: 'New',
+    badgeColor: 'bg-violet-500',
+    features: ['Dark Pool Trading', 'Privacy Wallets', 'Private Staking'],
   },
 ];
 
 export function PlatformFeatures() {
   return (
-    <section className="py-24 bg-slate-50 relative overflow-hidden">
-      {/* Subtle background texture */}
+    <section className="py-24 bg-slate-900 relative overflow-hidden">
+      {/* Dark background with gradient */}
       <div className="absolute inset-0">
-        {/* Fine dot pattern texture */}
-        <div className="absolute inset-0 opacity-[0.02]" style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(16, 185, 129, 0.4) 1px, transparent 0)`,
-          backgroundSize: '28px 28px'
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"></div>
+        {/* Grid pattern */}
+        <div className="absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+          backgroundSize: '50px 50px'
         }}></div>
-        
-        {/* Very subtle gradient for depth */}
-        <div className="absolute inset-0 bg-gradient-to-br from-white/60 via-slate-50 to-emerald-50/40"></div>
+        {/* Glow effects */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-violet-500/10 rounded-full blur-3xl"></div>
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -60,93 +63,151 @@ export function PlatformFeatures() {
           transition={{ duration: 0.6 }}
         >
           <motion.div
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 border border-emerald-200 mb-6"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 mb-6"
             initial={{ scale: 0 }}
             whileInView={{ scale: 1 }}
             viewport={{ once: true }}
           >
-            <Boxes className="w-4 h-4 text-emerald-600" />
-            <span className="text-sm font-semibold text-emerald-700">CORE ARCHITECTURE</span>
+            <Sparkles className="w-4 h-4 text-emerald-400" />
+            <span className="text-sm font-semibold text-emerald-300">ECOSYSTEM</span>
           </motion.div>
-          
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-            Verifiable compute infrastructure
+
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            Choose Your Path
           </h2>
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            Four-layer architecture designed for secure, scalable, and verifiable GPU compute across a global decentralized network.
+          <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+            From enterprise-grade compute to full crypto DEGEN mode. Privacy-first DeFi to verified GPU workloads. We&apos;ve got you covered.
           </p>
         </motion.div>
 
-        {/* Architecture layers grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {features.map((feature, index) => (
+        {/* Products grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          {products.map((product, index) => (
             <motion.div
-              key={feature.title}
+              key={product.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ duration: 0.5, delay: index * 0.15 }}
               className="relative group"
             >
-              {/* Card */}
-              <div className="relative rounded-2xl bg-white border border-slate-200 hover:border-emerald-200 hover:shadow-lg transition-all duration-300 h-full overflow-hidden">
-                {/* Image */}
-                <div className="relative h-48 bg-slate-50">
-                  <Image
-                    src={feature.image}
-                    alt={feature.imageAlt}
-                    fill
-                    className="object-cover object-top"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent" />
-                </div>
-
-                {/* Content */}
-                <div className="p-6">
-                  {/* Icon & Title */}
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center group-hover:bg-emerald-200 transition-colors duration-300">
-                      <feature.icon className="w-5 h-5 text-emerald-600" />
-                    </div>
-                    <h3 className="text-lg font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
-                      {feature.title}
-                    </h3>
-                  </div>
-
-                  {/* Description */}
-                  <p className="text-slate-600 leading-relaxed text-sm">
-                    {feature.description}
-                  </p>
-                </div>
-              </div>
+              {product.external ? (
+                <a
+                  href={product.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block h-full"
+                >
+                  <ProductCard product={product} />
+                </a>
+              ) : (
+                <Link href={product.href} className="block h-full">
+                  <ProductCard product={product} />
+                </Link>
+              )}
             </motion.div>
           ))}
         </div>
 
-        {/* Bottom CTA */}
+        {/* OpenClaw Integration Highlight */}
         <motion.div
-          className="mt-16 text-center"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="relative"
         >
-          <a
-            href="/platform"
-            className="inline-flex items-center gap-2 text-emerald-600 font-semibold text-lg hover:text-emerald-700 transition-colors group"
+          <Link
+            href="/openclaw"
+            className="block"
           >
-            Learn more about the platform
-            <motion.span
-              className="inline-block"
-              animate={{ x: [0, 5, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            >
-              →
-            </motion.span>
-          </a>
+            <div className="relative rounded-2xl bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 p-[1px] overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500"></div>
+              <div className="relative bg-slate-900 rounded-2xl p-8 md:p-10">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center">
+                      <Sparkles className="w-8 h-8 text-white" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-xs font-bold px-2 py-1 rounded-full bg-orange-500/20 text-orange-400">
+                          HOT
+                        </span>
+                        <span className="text-xs font-bold px-2 py-1 rounded-full bg-violet-500/20 text-violet-400">
+                          NEW INTEGRATION
+                        </span>
+                      </div>
+                      <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                        Run Agentic AI Workflows on BitSage
+                      </h3>
+                      <p className="text-slate-300 max-w-2xl">
+                        OpenClaw&apos;s powerful agentic workflows now run on BitSage&apos;s verified GPU infrastructure. Build, deploy, and scale AI agents with cryptographic proof of execution.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 text-white font-semibold whitespace-nowrap group-hover:gap-4 transition-all">
+                    <span>Explore OpenClaw</span>
+                    <ArrowRight className="w-5 h-5" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Link>
         </motion.div>
       </div>
     </section>
+  );
+}
+
+function ProductCard({ product }: { product: typeof products[0] }) {
+  return (
+    <div className="relative h-full rounded-2xl bg-slate-800/50 border border-slate-700 hover:border-emerald-500/50 transition-all duration-300 overflow-hidden group-hover:shadow-lg group-hover:shadow-emerald-500/10">
+      {/* Hover glow */}
+      <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-violet-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+      <div className="relative p-8">
+        {/* Header */}
+        <div className="flex items-start justify-between mb-6">
+          <div className="w-14 h-14 rounded-xl bg-slate-700 flex items-center justify-center group-hover:bg-slate-600 transition-colors">
+            <product.icon className="w-7 h-7 text-emerald-400" />
+          </div>
+          <span className={`text-xs font-bold px-2.5 py-1 rounded-full text-white ${product.badgeColor}`}>
+            {product.badge}
+          </span>
+        </div>
+
+        {/* Title */}
+        <h3 className="text-xl font-bold text-white mb-3 group-hover:text-emerald-300 transition-colors">
+          {product.title}
+        </h3>
+
+        {/* Description */}
+        <p className="text-slate-400 leading-relaxed mb-6">
+          {product.description}
+        </p>
+
+        {/* Features */}
+        <ul className="space-y-2 mb-6">
+          {product.features.map((feature, i) => (
+            <li key={i} className="flex items-center gap-2 text-sm text-slate-300">
+              <div className="w-1.5 h-1.5 rounded-full bg-emerald-400"></div>
+              {feature}
+            </li>
+          ))}
+        </ul>
+
+        {/* CTA */}
+        <div className="flex items-center gap-2 text-emerald-400 font-semibold text-sm group-hover:gap-3 transition-all">
+          <span>Learn more</span>
+          {product.external ? (
+            <ExternalLink className="w-4 h-4" />
+          ) : (
+            <ArrowRight className="w-4 h-4" />
+          )}
+        </div>
+      </div>
+    </div>
   );
 }
 

@@ -65,7 +65,7 @@ const menuItems = [
         title: 'Agentic Workflows',
         description: 'AI automation at scale',
         items: [
-          { label: 'MoltBook Integration', href: 'https://www.moltbook.com/', description: 'Run agentic AI workflows', icon: Sparkles, external: true, badge: 'Hot' },
+          { label: 'OpenClaw Integration', href: 'https://www.openclaw.com/', description: 'Run agentic AI workflows', icon: Sparkles, external: true, badge: 'Hot' },
           { label: 'Workflow Builder', href: '/docs/workflows', description: 'Design AI pipelines', icon: Code },
         ],
       },

@@ -1,8 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Award, X, ArrowRight } from 'lucide-react';
+import { Sparkles, X, ArrowRight, Zap } from 'lucide-react';
 import { useState } from 'react';
+import Link from 'next/link';
 
 export function AnnouncementBanner() {
   const [isVisible, setIsVisible] = useState(true);
@@ -10,35 +11,61 @@ export function AnnouncementBanner() {
   if (!isVisible) return null;
 
   return (
-    <div className="relative bg-gradient-to-r from-green-600 via-blue-600 to-green-700 text-white z-[100]">
-      {/* Subtle shimmer effect */}
+    <div className="relative bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 text-white z-[100] overflow-hidden">
+      {/* Animated shimmer effect */}
       <motion.div
-        className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-5"
+        className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-10"
         animate={{
           x: ['-100%', '100%'],
         }}
         transition={{
-          duration: 4,
+          duration: 3,
           repeat: Infinity,
-          repeatDelay: 2,
+          repeatDelay: 1,
         }}
       />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+      {/* Sparkle particles */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(5)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-white rounded-full"
+            style={{ left: `${20 + i * 15}%`, top: '50%' }}
+            animate={{
+              opacity: [0, 1, 0],
+              scale: [0, 1, 0],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              delay: i * 0.4,
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5">
         <div className="flex items-center justify-between gap-3">
           {/* Content */}
           <div className="flex items-center gap-3 flex-1 justify-center text-center">
-            <Award className="w-4 h-4 flex-shrink-0" />
-            <span className="text-xs sm:text-sm font-medium">
-              <span className="font-semibold">Partnership Announcement:</span> BitSage Network joins <span className="font-bold">NVIDIA Partner Network</span>
-            </span>
-            <a
-              href="/company#partnerships"
-              className="hidden lg:inline-flex items-center gap-1.5 px-3 py-1 bg-white/20 hover:bg-white/30 border border-white/30 rounded-full text-xs font-medium transition-all group backdrop-blur-sm"
+            <motion.div
+              animate={{ rotate: [0, 15, -15, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
             >
-              Learn More
+              <Sparkles className="w-4 h-4 flex-shrink-0 text-yellow-300" />
+            </motion.div>
+            <span className="text-xs sm:text-sm font-medium">
+              <span className="font-bold text-yellow-300">NEW:</span> Run <span className="font-bold">Agentic AI Workflows</span> on BitSage
+            </span>
+            <Link
+              href="/openclaw"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 bg-white/20 hover:bg-white/30 border border-white/30 rounded-full text-xs font-bold transition-all group backdrop-blur-sm"
+            >
+              <Zap className="w-3 h-3" />
+              OpenClaw
               <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
-            </a>
+            </Link>
           </div>
 
           {/* Close button */}
