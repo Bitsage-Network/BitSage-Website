@@ -16,7 +16,6 @@ const workflows = [
     icon: Film,
     title: 'Batch Rendering Workflow',
     description: 'Render 3D scenes, animations, and visual effects across distributed GPUs.',
-    color: 'amber',
     steps: [
       'Upload project files (.blend, .ma, scene)',
       'Configure render settings (resolution, format, frames)',
@@ -49,7 +48,6 @@ job.download("./renders/")`,
     icon: Brain,
     title: 'AI Training Workflow',
     description: 'Distributed model training with checkpointing and verification.',
-    color: 'cyan',
     steps: [
       'Upload training script and dataset',
       'Configure distributed training parameters',
@@ -82,7 +80,6 @@ for update in job.stream():
     icon: Zap,
     title: 'Real-time Inference Workflow',
     description: 'Deploy models for low-latency serving with auto-scaling.',
-    color: 'violet',
     steps: [
       'Upload model artifacts (ONNX, PyTorch, TensorFlow)',
       'Configure serving parameters and scaling',
@@ -114,7 +111,6 @@ response = deployment.generate(
     icon: FlaskConical,
     title: 'Scientific Simulation Workflow',
     description: 'Run molecular dynamics, climate models, and physics simulations.',
-    color: 'purple',
     steps: [
       'Upload simulation configuration and input files',
       'Configure compute resources and duration',
@@ -148,7 +144,6 @@ trajectory.download("./results/")`,
     icon: Lock,
     title: 'ZK Proof Generation Workflow',
     description: 'Generate zero-knowledge proofs with GPU acceleration.',
-    color: 'emerald',
     steps: [
       'Submit computation witness and circuit',
       'Proof generation distributed across GPUs',
@@ -178,9 +173,8 @@ tx = proof.verify_on_chain(network="starknet")`,
     icon: Layers,
     title: 'Hybrid Workflow',
     description: 'Combine multiple workflow types in a single pipeline.',
-    color: 'rose',
     steps: [
-      'Define pipeline stages (training → inference → verification)',
+      'Define pipeline stages (training \u2192 inference \u2192 verification)',
       'Configure dependencies and data flow',
       'Pipeline executes across workflow types',
       'Results from each stage verified',
@@ -207,16 +201,7 @@ results = pipeline.run()`,
   },
 ];
 
-const colorMap: Record<string, { bg: string; text: string; border: string; gradient: string }> = {
-  amber: { bg: 'bg-amber-500/20', text: 'text-amber-400', border: 'border-amber-500/30', gradient: 'from-amber-500 to-orange-500' },
-  cyan: { bg: 'bg-cyan-500/20', text: 'text-cyan-400', border: 'border-cyan-500/30', gradient: 'from-cyan-500 to-emerald-500' },
-  violet: { bg: 'bg-violet-500/20', text: 'text-violet-400', border: 'border-violet-500/30', gradient: 'from-violet-500 to-fuchsia-500' },
-  purple: { bg: 'bg-purple-500/20', text: 'text-purple-400', border: 'border-purple-500/30', gradient: 'from-purple-500 to-violet-500' },
-  emerald: { bg: 'bg-emerald-500/20', text: 'text-emerald-400', border: 'border-emerald-500/30', gradient: 'from-emerald-500 to-cyan-500' },
-  rose: { bg: 'bg-rose-500/20', text: 'text-rose-400', border: 'border-rose-500/30', gradient: 'from-rose-500 to-pink-500' },
-};
-
-function CodeBlock({ code, color }: { code: string; color: string }) {
+function CodeBlock({ code }: { code: string }) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
@@ -226,10 +211,10 @@ function CodeBlock({ code, color }: { code: string; color: string }) {
   };
 
   return (
-    <div className="bg-slate-900 rounded-xl border border-slate-700/50 overflow-hidden">
-      <div className="flex items-center justify-between px-4 py-2 border-b border-slate-700/50">
+    <div className="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden">
+      <div className="flex items-center justify-between px-4 py-2 border-b border-slate-800">
         <div className="flex items-center gap-2">
-          <Code2 className={`w-4 h-4 ${colorMap[color].text}`} />
+          <Code2 className="w-4 h-4 text-slate-400" />
           <span className="text-xs text-slate-400">Python</span>
         </div>
         <button
@@ -257,27 +242,25 @@ function CodeBlock({ code, color }: { code: string; color: string }) {
 }
 
 function WorkflowCard({ workflow, index }: { workflow: typeof workflows[0]; index: number }) {
-  const colors = colorMap[workflow.color];
-
   return (
     <motion.div
       id={workflow.id}
       className="scroll-mt-24"
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.1 }}
     >
-      <div className="bg-slate-800/50 rounded-2xl border border-slate-700/50 overflow-hidden">
+      <div className="bg-white border border-slate-200 rounded-xl hover:shadow-md hover:border-slate-300 transition-all overflow-hidden">
         {/* Header */}
-        <div className={`px-6 py-4 bg-gradient-to-r ${colors.gradient} bg-opacity-10`}>
+        <div className="px-6 py-4 border-b border-slate-100">
           <div className="flex items-center gap-3">
-            <div className={`w-10 h-10 rounded-lg ${colors.bg} ${colors.border} border flex items-center justify-center`}>
-              <workflow.icon className={`w-5 h-5 ${colors.text}`} />
+            <div className="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center">
+              <workflow.icon className="w-5 h-5 text-slate-600" />
             </div>
             <div>
-              <h3 className="text-lg font-bold text-white">{workflow.title}</h3>
-              <p className="text-sm text-slate-400">{workflow.description}</p>
+              <h3 className="text-lg font-bold text-slate-900">{workflow.title}</h3>
+              <p className="text-sm text-slate-500">{workflow.description}</p>
             </div>
           </div>
         </div>
@@ -288,14 +271,14 @@ function WorkflowCard({ workflow, index }: { workflow: typeof workflows[0]; inde
             <div className="space-y-6">
               {/* Steps */}
               <div>
-                <h4 className="text-sm font-semibold text-slate-300 mb-3">How It Works</h4>
+                <h4 className="text-sm font-semibold text-slate-900 mb-3">How It Works</h4>
                 <ol className="space-y-2">
                   {workflow.steps.map((step, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <span className={`flex-shrink-0 w-5 h-5 rounded-full ${colors.bg} ${colors.text} text-xs font-bold flex items-center justify-center`}>
+                      <span className="flex-shrink-0 w-5 h-5 rounded-full bg-slate-100 text-slate-600 text-xs font-bold flex items-center justify-center">
                         {i + 1}
                       </span>
-                      <span className="text-sm text-slate-400">{step}</span>
+                      <span className="text-sm text-slate-500">{step}</span>
                     </li>
                   ))}
                 </ol>
@@ -303,10 +286,10 @@ function WorkflowCard({ workflow, index }: { workflow: typeof workflows[0]; inde
 
               {/* Use Cases */}
               <div>
-                <h4 className="text-sm font-semibold text-slate-300 mb-2">Use Cases</h4>
+                <h4 className="text-sm font-semibold text-slate-900 mb-2">Use Cases</h4>
                 <div className="flex flex-wrap gap-2">
                   {workflow.useCases.map((useCase) => (
-                    <span key={useCase} className="text-xs px-2 py-1 rounded bg-slate-700/50 text-slate-400">
+                    <span key={useCase} className="text-xs px-2 py-1 rounded bg-slate-100 text-slate-500">
                       {useCase}
                     </span>
                   ))}
@@ -315,15 +298,15 @@ function WorkflowCard({ workflow, index }: { workflow: typeof workflows[0]; inde
 
               {/* Estimated Cost */}
               <div className="flex items-center gap-2">
-                <span className="text-sm text-slate-500">Estimated cost:</span>
-                <span className={`text-sm font-semibold ${colors.text}`}>{workflow.estimatedCost}</span>
+                <span className="text-sm text-slate-400">Estimated cost:</span>
+                <span className="text-sm font-semibold text-slate-900">{workflow.estimatedCost}</span>
               </div>
             </div>
 
             {/* Right: Code */}
             <div>
-              <h4 className="text-sm font-semibold text-slate-300 mb-3">Quick Start</h4>
-              <CodeBlock code={workflow.code} color={workflow.color} />
+              <h4 className="text-sm font-semibold text-slate-900 mb-3">Quick Start</h4>
+              <CodeBlock code={workflow.code} />
             </div>
           </div>
         </div>
@@ -334,35 +317,25 @@ function WorkflowCard({ workflow, index }: { workflow: typeof workflows[0]; inde
 
 export default function WorkflowsPage() {
   return (
-    <PublicPageLayout className="bg-slate-950">
+    <PublicPageLayout>
       {/* Hero Section */}
-      <section className="relative pt-32 pb-16 overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-emerald-950/10 to-slate-950" />
-          <motion.div
-            className="absolute top-1/4 -left-32 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"
-            animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
-            transition={{ duration: 8, repeat: Infinity }}
-          />
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="pt-32 pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             className="text-center max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 mb-6">
-              <Layers className="w-4 h-4" />
-              <span className="text-sm font-semibold">WORKFLOW TEMPLATES</span>
-            </div>
+            <p className="text-[--accent] uppercase tracking-wider text-sm font-semibold mb-4">
+              Workflow Templates
+            </p>
 
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
               Pre-Built Workflow Templates
             </h1>
 
-            <p className="text-lg text-slate-400 mb-8">
+            <p className="text-lg text-slate-500 mb-8">
               Get started quickly with templates for common GPU compute patterns.
               Each workflow includes step-by-step guides, code examples, and cost estimates.
             </p>
@@ -371,22 +344,19 @@ export default function WorkflowsPage() {
       </section>
 
       {/* Quick Navigation */}
-      <section className="py-8 border-y border-slate-800">
+      <section className="py-8 border-y border-slate-200 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap justify-center gap-3">
-            {workflows.map((workflow) => {
-              const colors = colorMap[workflow.color];
-              return (
-                <a
-                  key={workflow.id}
-                  href={`#${workflow.id}`}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg ${colors.bg} ${colors.border} border ${colors.text} text-sm font-medium hover:opacity-80 transition-opacity`}
-                >
-                  <workflow.icon className="w-4 h-4" />
-                  {workflow.title.replace(' Workflow', '')}
-                </a>
-              );
-            })}
+            {workflows.map((workflow) => (
+              <a
+                key={workflow.id}
+                href={`#${workflow.id}`}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white border border-slate-200 text-slate-600 text-sm font-medium hover:shadow-md hover:border-slate-300 transition-all"
+              >
+                <workflow.icon className="w-4 h-4" />
+                {workflow.title.replace(' Workflow', '')}
+              </a>
+            ))}
           </div>
         </div>
       </section>
@@ -403,31 +373,31 @@ export default function WorkflowsPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-slate-900/50">
+      <section className="py-16 bg-slate-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
               Ready to Build?
             </h2>
-            <p className="text-slate-400 mb-8">
+            <p className="text-slate-500 mb-8">
               Check out our documentation for detailed guides, API references, and SDK downloads.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 href="/docs/getting-started"
-                className="group px-6 py-3 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-all flex items-center gap-2"
+                className="group px-6 py-3 bg-slate-900 text-white font-semibold rounded-lg text-sm hover:bg-slate-800 transition-all flex items-center gap-2"
               >
                 Get Started
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 href="/docs"
-                className="px-6 py-3 border border-slate-700 text-slate-300 font-medium rounded-xl hover:border-slate-600 hover:bg-slate-800/50 transition-all"
+                className="px-6 py-3 bg-white border border-slate-200 text-slate-600 font-medium rounded-lg text-sm hover:shadow-md hover:border-slate-300 transition-all"
               >
                 View Full Docs
               </Link>

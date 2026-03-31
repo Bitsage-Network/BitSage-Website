@@ -54,50 +54,53 @@ export default function EnterprisesPage() {
   return (
     <PublicPageLayout className="bg-slate-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white py-20">
+      <section className="pt-32 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <motion.h1 
-              initial={{ opacity: 0, y: 30 }}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-4xl md:text-6xl font-bold mb-6"
             >
-              Access Distributed
-              <span className="block bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                GPU Infrastructure
-              </span>
+              <p className="text-sm font-semibold text-[--accent] uppercase tracking-wider mb-4">Enterprise</p>
+            </motion.div>
+            <motion.h1
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.05 }}
+              className="text-4xl md:text-5xl font-bold text-slate-900 mb-6"
+            >
+              GPU Infrastructure{' '}
+              <span className="text-[--accent]">for Enterprise</span>
             </motion.h1>
-            
-            <motion.p 
-              initial={{ opacity: 0, y: 30 }}
+
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-xl text-slate-300 mb-8 max-w-3xl mx-auto"
+              transition={{ delay: 0.1 }}
+              className="text-lg text-slate-500 mb-8 max-w-3xl mx-auto"
             >
-              The future of enterprise GPU computing with verifiable results. Join our waitlist 
-              to be among the first to access cryptographically verified compute infrastructure.
+              Verifiable GPU computing with SOC2 compliance, SLA guarantees, and
+              cryptographic proof of every computation. Built for teams that need trust.
             </motion.p>
 
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
+              transition={{ delay: 0.15 }}
+              className="flex flex-col sm:flex-row gap-3 justify-center"
             >
-              <Link 
+              <Link
                 href="/waitlist"
-                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2"
+                className="group px-6 py-3 bg-slate-900 text-white font-semibold rounded-lg hover:bg-slate-800 transition-colors flex items-center justify-center gap-2 text-sm"
               >
-                <span>Join Waitlist</span>
-                <ArrowRight className="w-4 h-4" />
+                Join Waitlist
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </Link>
-              
-              <Link 
+              <Link
                 href="/manifesto"
-                className="px-8 py-4 bg-white/10 backdrop-blur-lg border border-white/20 text-white font-semibold rounded-xl hover:bg-white/20 transition-all duration-300 flex items-center justify-center gap-2"
+                className="px-6 py-3 bg-white border border-slate-200 text-slate-600 font-semibold rounded-lg hover:border-slate-300 hover:text-slate-900 transition-all flex items-center justify-center gap-2 text-sm"
               >
-                <Play className="w-4 h-4" />
-                <span>Read Manifesto</span>
+                Read Manifesto
               </Link>
             </motion.div>
           </div>

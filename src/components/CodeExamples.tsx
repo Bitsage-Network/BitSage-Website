@@ -6,10 +6,10 @@ import { Code2, Terminal, Copy, Check, Zap, Clock, Shield, Cpu, ArrowRight, Lock
 import Link from 'next/link';
 
 const features = [
-  { icon: Zap, label: 'Sub-minute job starts', color: 'text-amber-600 bg-amber-50' },
-  { icon: Clock, label: 'Cost estimation before run', color: 'text-blue-600 bg-blue-50' },
-  { icon: Shield, label: 'TEE secure execution', color: 'text-violet-600 bg-violet-50' },
-  { icon: Lock, label: 'End-to-end encrypted', color: 'text-emerald-600 bg-emerald-50' },
+  { icon: Zap, label: 'Sub-minute job starts' },
+  { icon: Clock, label: 'Cost estimation before run' },
+  { icon: Shield, label: 'TEE secure execution' },
+  { icon: Lock, label: 'End-to-end encrypted' },
 ];
 
 const gpuTiers = [
@@ -200,84 +200,58 @@ export function CodeExamples() {
   };
 
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
-      {/* Subtle background */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-50 via-white to-white" />
-        <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-bl from-emerald-50/50 to-transparent" />
-        <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-gradient-to-tr from-violet-50/30 to-transparent" />
-      </div>
+    <section className="py-24 bg-slate-50 relative">
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           className="text-center mb-12"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <motion.div
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900 text-white mb-6"
-            initial={{ scale: 0.9 }}
-            whileInView={{ scale: 1 }}
-            viewport={{ once: true }}
-          >
-            <Terminal className="w-4 h-4 text-emerald-400" />
-            <span className="text-sm font-semibold">DEVELOPERS</span>
-          </motion.div>
-
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
-            Start GPU jobs in minutes
+          <p className="text-sm font-semibold text-[--accent] uppercase tracking-wider mb-4">For developers</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+            Ship GPU jobs in five lines
           </h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Simple CLI & Python SDK with built-in privacy. No YAML, no config files—just code.
+          <p className="text-lg text-slate-500 max-w-2xl mx-auto">
+            CLI and Python SDK with privacy built in. Estimate costs before you commit, stream progress in real time, download encrypted results when done.
           </p>
         </motion.div>
 
         {/* Feature badges */}
-        <motion.div
-          className="flex flex-wrap justify-center gap-3 mb-12"
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-        >
-          {features.map((feature, i) => (
-            <motion.div
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
+          {features.map((feature) => (
+            <div
               key={feature.label}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full ${feature.color} border border-current/10`}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.05 }}
+              className="flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 text-sm text-slate-700"
             >
-              <feature.icon className="w-4 h-4" />
-              <span className="text-sm font-medium">{feature.label}</span>
-            </motion.div>
+              <feature.icon className="w-4 h-4 text-slate-500" />
+              <span className="font-medium">{feature.label}</span>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Main content */}
         <div className="grid lg:grid-cols-12 gap-8 items-start">
           {/* Left: Tabs + GPU info */}
           <div className="lg:col-span-4 space-y-6">
-            {/* Tabs */}
-            <div className="bg-slate-50 rounded-2xl p-2 border border-slate-200">
+            <div className="bg-white rounded-2xl p-2 border border-slate-200">
               {examples.map((example) => (
                 <button
                   key={example.id}
                   onClick={() => setActiveTab(example.id)}
                   className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-left ${
                     activeTab === example.id
-                      ? 'bg-white shadow-sm border border-slate-200'
-                      : 'hover:bg-white/50'
+                      ? 'bg-slate-50 shadow-sm border border-slate-200'
+                      : 'hover:bg-slate-50'
                   }`}
                 >
                   <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                    activeTab === example.id ? 'bg-emerald-100' : 'bg-slate-100'
+                    activeTab === example.id ? 'bg-[--accent-light]' : 'bg-slate-100'
                   }`}>
                     <example.icon className={`w-5 h-5 ${
-                      activeTab === example.id ? 'text-emerald-600' : 'text-slate-500'
+                      activeTab === example.id ? 'text-[--accent]' : 'text-slate-500'
                     }`} />
                   </div>
                   <div>
@@ -293,12 +267,7 @@ export function CodeExamples() {
             </div>
 
             {/* GPU Tiers */}
-            <motion.div
-              className="bg-slate-900 rounded-2xl p-6 text-white"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
+            <div className="bg-slate-900 rounded-2xl p-6 text-white">
               <div className="flex items-center gap-2 mb-4">
                 <Cpu className="w-5 h-5 text-emerald-400" />
                 <span className="font-semibold">Available GPUs</span>
@@ -321,17 +290,12 @@ export function CodeExamples() {
                 View all GPUs
                 <ArrowRight className="w-4 h-4" />
               </Link>
-            </motion.div>
+            </div>
           </div>
 
           {/* Right: Code display */}
-          <motion.div
-            className="lg:col-span-8"
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-xl shadow-slate-200/50">
+          <div className="lg:col-span-8">
+            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-lg">
               {/* Code header */}
               <div className="flex items-center justify-between px-6 py-4 bg-slate-900 border-b border-slate-800">
                 <div className="flex items-center gap-4">
@@ -375,10 +339,10 @@ export function CodeExamples() {
                 </pre>
               </div>
 
-              {/* Code footer with live indicator */}
+              {/* Code footer */}
               <div className="flex items-center justify-between px-6 py-3 bg-slate-900 border-t border-slate-800">
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                  <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
                   <span className="text-xs text-slate-400">Ready to run</span>
                 </div>
                 <div className="flex items-center gap-4 text-xs text-slate-500">
@@ -393,32 +357,32 @@ export function CodeExamples() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {/* Bottom CTA */}
         <motion.div
           className="mt-16 text-center"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
+          transition={{ delay: 0.1 }}
         >
           <div className="inline-flex flex-col sm:flex-row items-center gap-4">
             <Link
               href="/docs/quickstart"
-              className="group inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-slate-900 text-white font-semibold hover:bg-slate-800 transition-all shadow-lg"
+              className="group inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-slate-900 text-white font-semibold hover:bg-slate-800 transition-colors text-sm"
             >
-              <Terminal className="w-5 h-5" />
-              Get Started
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <Terminal className="w-4 h-4" />
+              Quick start guide
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </Link>
             <Link
               href="/docs/api-reference"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border-2 border-slate-200 text-slate-700 font-semibold hover:border-slate-300 hover:bg-slate-50 transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-slate-200 bg-white text-slate-600 font-semibold hover:border-slate-300 hover:text-slate-900 transition-all text-sm"
             >
-              <Code2 className="w-5 h-5" />
-              API Reference
+              <Code2 className="w-4 h-4" />
+              API reference
             </Link>
           </div>
         </motion.div>

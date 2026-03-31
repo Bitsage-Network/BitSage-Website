@@ -2,29 +2,25 @@
 
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
-import { FloatingChat } from '@/components/FloatingChat';
-import { AnnouncementBanner } from '@/components/AnnouncementBanner';
 
 interface PublicPageLayoutProps {
   children: React.ReactNode;
-  showAnnouncementBanner?: boolean;
   className?: string;
+  dark?: boolean;
 }
 
-export function PublicPageLayout({ 
-  children, 
-  showAnnouncementBanner = false,
-  className = ""
+export function PublicPageLayout({
+  children,
+  className = "",
+  dark = false,
 }: PublicPageLayoutProps) {
   return (
     <>
-      {showAnnouncementBanner && <AnnouncementBanner />}
-      <Navigation />
-      <main className={`min-h-screen ${className}`}>
+      <Navigation dark={dark} />
+      <main className={`min-h-screen ${dark ? 'bg-slate-950' : 'bg-white'} ${className}`}>
         {children}
       </main>
       <Footer />
-      <FloatingChat />
     </>
   );
 }

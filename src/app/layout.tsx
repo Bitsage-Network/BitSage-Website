@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { FloatingChat } from "@/components/FloatingChat";
 import { ToastProvider } from "@/components/ui/Toast";
 
 const geistSans = Geist({
@@ -16,9 +15,9 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://bitsage.network'),
-  title: "BitSage | Decentralized GPU Compute Network",
-  description: "Access professional GPU compute power for rendering, AI training, and game development. Powered by Sage AI assistants and the $SAGE token.",
-  keywords: ["GPU compute", "decentralized", "rendering", "AI training", "machine learning", "blockchain", "SAGE token"],
+  title: "BitSage | Verifiable GPU Cloud",
+  description: "Run AI on GPUs you can verify. Hardware-secured compute with TEE enclaves, cryptographic proofs, and enterprise-grade privacy.",
+  keywords: ["GPU compute", "verifiable AI", "TEE", "confidential computing", "GPU cloud", "AI inference", "zero knowledge proofs"],
   authors: [{ name: "BitSage Network" }],
   icons: {
     icon: [
@@ -29,8 +28,8 @@ export const metadata: Metadata = {
     apple: '/apple-touch-icon.png',
   },
   openGraph: {
-    title: "BitSage | Decentralized GPU Compute Network",
-    description: "Professional GPU compute for creators, developers, and AI builders",
+    title: "BitSage | Verifiable GPU Cloud",
+    description: "Run AI on GPUs you can verify. Hardware-secured compute with enterprise-grade privacy.",
     type: "website",
     siteName: "BitSage Network",
     images: [
@@ -44,8 +43,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "BitSage | Decentralized GPU Compute Network",
-    description: "Professional GPU compute for creators, developers, and AI builders",
+    title: "BitSage | Verifiable GPU Cloud",
+    description: "Run AI on GPUs you can verify. Hardware-secured compute with enterprise-grade privacy.",
     images: ['/bitsage-hero-social.svg'],
   },
 };
@@ -62,7 +61,6 @@ export default function RootLayout({
       >
         <ToastProvider>
           {children}
-          <FloatingChat />
         </ToastProvider>
       </body>
     </html>

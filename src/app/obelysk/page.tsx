@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Lock, Shield, Wallet, Eye, EyeOff, ArrowRight, Sparkles, Zap, ArrowDownUp, Bitcoin, TrendingUp, TrendingDown, Activity, Layers, ChevronRight } from 'lucide-react';
+import { Lock, Shield, Wallet, Eye, EyeOff, ArrowRight, Zap, ArrowDownUp, Bitcoin, TrendingUp, TrendingDown, Activity, Layers, ChevronRight } from 'lucide-react';
 import { PublicPageLayout } from '@/components/PublicPageLayout';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
@@ -104,25 +104,13 @@ export default function ObelyskPage() {
   }, []);
 
   return (
-    <PublicPageLayout className="bg-slate-950">
+    <PublicPageLayout dark>
       {/* Hero Section */}
       <section className="relative min-h-[80vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-violet-950/30 to-slate-950"></div>
-          <div className="absolute inset-0 opacity-[0.02]" style={{
-            backgroundImage: `linear-gradient(rgba(139, 92, 246, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(139, 92, 246, 0.3) 1px, transparent 1px)`,
-            backgroundSize: '60px 60px'
-          }}></div>
-          <motion.div
-            className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-violet-500/10 rounded-full blur-[120px]"
-            animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
-            transition={{ duration: 8, repeat: Infinity }}
-          />
-          <motion.div
-            className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-fuchsia-500/10 rounded-full blur-[100px]"
-            animate={{ scale: [1, 1.3, 1], opacity: [0.1, 0.15, 0.1] }}
-            transition={{ duration: 10, repeat: Infinity }}
-          />
+          <div className="absolute inset-0 bg-slate-950" />
+          <div className="absolute top-0 left-1/3 w-[600px] h-[600px] bg-violet-900/20 rounded-full blur-[150px]" />
+          <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-slate-800/40 rounded-full blur-[120px]" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
@@ -142,12 +130,8 @@ export default function ObelyskPage() {
               <span className="text-sm font-semibold text-violet-300">PRIVACY-FIRST DEFI</span>
             </motion.div>
 
-            <h1 className="text-5xl md:text-7xl font-bold mb-6">
-              <span className="text-white">Obelysk</span>
-              <br />
-              <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
-                Protocol
-              </span>
+            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+              Obelysk <span className="text-violet-400">Protocol</span>
             </h1>
 
             <p className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">
@@ -157,15 +141,14 @@ export default function ObelyskPage() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/waitlist">
-                <button className="px-8 py-4 bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white font-semibold rounded-xl shadow-lg shadow-violet-500/25 transition-all duration-300 flex items-center justify-center gap-2">
-                  <Sparkles className="w-5 h-5" />
+                <button className="group px-6 py-3 bg-white text-slate-900 font-semibold rounded-lg hover:bg-slate-100 transition-colors flex items-center justify-center gap-2 text-sm">
                   Join Waitlist
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                 </button>
               </Link>
               <a href="#demo">
-                <button className="px-8 py-4 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-semibold rounded-xl transition-all duration-300 flex items-center justify-center gap-2">
+                <button className="px-6 py-3 border border-slate-700 text-slate-300 font-semibold rounded-lg hover:border-slate-600 hover:text-white transition-all flex items-center justify-center gap-2 text-sm">
                   View Demo
-                  <ArrowRight className="w-5 h-5" />
                 </button>
               </a>
             </div>
@@ -601,29 +584,25 @@ export default function ObelyskPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/20 border border-emerald-500/30 mb-6">
-              <Sparkles className="w-4 h-4 text-emerald-400" />
-              <span className="text-sm font-semibold text-emerald-300">EARLY ACCESS</span>
-            </div>
+            <p className="text-sm font-semibold text-violet-400 uppercase tracking-wider mb-4">Early Access</p>
 
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Ready to Trade Privately?
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+              Ready to trade privately?
             </h2>
-            <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto">
+            <p className="text-lg text-slate-400 mb-10 max-w-2xl mx-auto">
               Join the waitlist for early access to Obelysk Protocol. Be among the first to trade Bitcoin with complete privacy.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link href="/waitlist">
-                <button className="px-8 py-4 bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white font-semibold rounded-xl shadow-lg shadow-violet-500/25 transition-all flex items-center justify-center gap-2">
-                  <Sparkles className="w-5 h-5" />
+                <button className="group px-6 py-3 bg-white text-slate-900 font-semibold rounded-lg hover:bg-slate-100 transition-colors flex items-center justify-center gap-2 text-sm">
                   Join Waitlist
-                  <ArrowRight className="w-5 h-5" />
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                 </button>
               </Link>
               <Link href="/docs">
-                <button className="px-8 py-4 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-semibold rounded-xl transition-all">
-                  Read Documentation
+                <button className="px-6 py-3 border border-slate-700 text-slate-300 font-semibold rounded-lg hover:border-slate-600 hover:text-white transition-all text-sm">
+                  Read documentation
                 </button>
               </Link>
             </div>

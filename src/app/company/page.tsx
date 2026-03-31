@@ -12,14 +12,15 @@ export default function CompanyPage() {
   return (
     <PublicPageLayout className="bg-slate-50">
       {/* Hero Section */}
-      <section className="bg-slate-900 text-white py-24">
+      <section className="pt-32 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            <p className="text-sm font-semibold text-[--accent] uppercase tracking-wider mb-4">Company</p>
+            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
               About BitSage Network
             </h1>
-            <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-              We're building the future of verifiable compute infrastructure, 
+            <p className="text-lg text-slate-500 max-w-3xl mx-auto">
+              Building the future of verifiable compute infrastructure --
               enabling trust and transparency in distributed computing.
             </p>
           </div>

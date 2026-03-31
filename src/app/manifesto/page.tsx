@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import { Brain, Shield, Network, Cpu, Zap, Globe, Lock, TrendingUp, Users, Award, ArrowRight, CheckCircle, Menu, X } from 'lucide-react';
+import { Navigation } from '@/components/Navigation';
+import { Footer } from '@/components/Footer';
 import MermaidDiagram from '@/components/MermaidDiagram';
 import MathFormula from '@/components/MathFormula';
 import Image from 'next/image';
@@ -35,6 +37,8 @@ export default function ManifestoPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
+    <>
+    <Navigation />
     <div className="flex flex-col md:flex-row min-h-screen bg-white text-gray-900">
       {/* Mobile Menu Button */}
       <div className="md:hidden fixed top-4 right-4 z-50">
@@ -2944,5 +2948,7 @@ export default function ManifestoPage() {
         </footer>
       </main>
     </div>
+    <Footer />
+    </>
   );
 } 
