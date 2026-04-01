@@ -30,7 +30,7 @@ export function HeroRevamped() {
 
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col justify-center py-20 sm:py-24 lg:py-32 max-w-xl lg:max-w-[540px]">
+        <div className="flex flex-col items-center text-center lg:items-start lg:text-left justify-center py-20 sm:py-24 lg:py-32 max-w-xl lg:max-w-[540px] mx-auto lg:mx-0">
 
           {/* Badge */}
           <motion.div
@@ -70,7 +70,7 @@ export function HeroRevamped() {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.35 }}
-            className="mt-5 flex flex-wrap items-center gap-2"
+            className="mt-5 flex flex-wrap items-center justify-center lg:justify-start gap-2"
           >
             {[
               { icon: Lock, label: 'TEE Enclaves' },
@@ -92,7 +92,7 @@ export function HeroRevamped() {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25, duration: 0.35 }}
-            className="mt-7 flex flex-col xs:flex-row gap-3"
+            className="mt-7 flex flex-col xs:flex-row gap-3 w-full xs:w-auto"
           >
             <Link href="/waitlist">
               <button className="group w-full xs:w-auto px-6 py-3 bg-slate-900 text-white font-semibold rounded-lg hover:bg-slate-800 transition-colors duration-150 flex items-center justify-center gap-2 text-[15px]">
