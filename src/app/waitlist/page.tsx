@@ -169,7 +169,7 @@ export default function WaitlistPage() {
               
               <p className="text-xl text-slate-600 mb-8 leading-relaxed">
                 {userType === 'user' 
-                  ? 'Be among the first enterprises to access BitSage Network\'s revolutionary decentralized GPU compute infrastructure with cryptographic proof of execution.'
+                  ? 'Be among the first enterprises to access BitSage Network\'s verified GPU compute infrastructure with zero-knowledge proof of execution.'
                   : 'Turn your idle GPU power into passive income by joining BitSage Network\'s verifiable distributed compute infrastructure as an early provider.'
                 }
               </p>

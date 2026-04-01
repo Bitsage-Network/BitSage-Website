@@ -49,13 +49,13 @@ function WalletModal({
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.95, opacity: 0 }}
           onClick={(e) => e.stopPropagation()}
-          className="bg-slate-900 border border-white/20 rounded-2xl p-6 w-full max-w-md shadow-2xl"
+          className="bg-white border border-slate-200 rounded-2xl p-6 w-full max-w-md shadow-2xl"
         >
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-bold text-white">Connect Wallet</h3>
+            <h3 className="text-xl font-bold text-slate-900">Connect Wallet</h3>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+              className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
               disabled={isConnecting}
             >
               <X className="w-5 h-5 text-slate-400" />
@@ -66,13 +66,13 @@ function WalletModal({
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mb-4 p-3 bg-red-500/20 border border-red-500/50 rounded-lg text-red-200 text-sm"
+              className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm"
             >
               {walletError}
             </motion.div>
           )}
 
-          <p className="text-slate-400 text-sm mb-4">
+          <p className="text-slate-500 text-sm mb-4">
             Select a wallet to connect. You'll be asked to sign a message to verify ownership.
           </p>
 
@@ -80,34 +80,34 @@ function WalletModal({
             <button
               onClick={() => onSelectWallet('braavos')}
               disabled={isConnecting}
-              className="w-full flex items-center gap-4 p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyan-500/50 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full flex items-center gap-4 p-4 bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-400 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-red-500 rounded-xl flex items-center justify-center">
                 <span className="text-2xl">🦊</span>
               </div>
               <div className="text-left">
-                <p className="font-semibold text-white">Braavos</p>
-                <p className="text-sm text-slate-400">Smart Contract Wallet</p>
+                <p className="font-semibold text-slate-900">Braavos</p>
+                <p className="text-sm text-slate-500">Smart Contract Wallet</p>
               </div>
               {isConnecting && (
-                <div className="ml-auto w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <div className="ml-auto w-5 h-5 border-2 border-slate-300 border-t-slate-900 rounded-full animate-spin" />
               )}
             </button>
 
             <button
               onClick={() => onSelectWallet('argentx')}
               disabled={isConnecting}
-              className="w-full flex items-center gap-4 p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyan-500/50 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full flex items-center gap-4 p-4 bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-400 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-amber-400 rounded-xl flex items-center justify-center">
                 <span className="text-2xl">🛡️</span>
               </div>
               <div className="text-left">
-                <p className="font-semibold text-white">ArgentX</p>
-                <p className="text-sm text-slate-400">Security-First Wallet</p>
+                <p className="font-semibold text-slate-900">ArgentX</p>
+                <p className="text-sm text-slate-500">Security-First Wallet</p>
               </div>
               {isConnecting && (
-                <div className="ml-auto w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <div className="ml-auto w-5 h-5 border-2 border-slate-300 border-t-slate-900 rounded-full animate-spin" />
               )}
             </button>
           </div>
@@ -118,7 +118,7 @@ function WalletModal({
               href="https://braavos.app/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-cyan-400 hover:underline"
+              className="text-slate-900 font-medium hover:underline"
             >
               Get Braavos
             </a>
@@ -127,7 +127,7 @@ function WalletModal({
               href="https://www.argent.xyz/argent-x/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-cyan-400 hover:underline"
+              className="text-slate-900 font-medium hover:underline"
             >
               Get ArgentX
             </a>
@@ -229,12 +229,7 @@ function LoginContent() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-      </div>
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 relative overflow-hidden">
 
       {/* Login Container */}
       <motion.div
@@ -254,10 +249,10 @@ function LoginContent() {
             <div className="w-12 h-12 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-xl flex items-center justify-center">
               <Zap className="w-7 h-7 text-white" />
             </div>
-            <h1 className="text-3xl font-bold text-white">BitSage</h1>
+            <h1 className="text-3xl font-bold text-slate-900">BitSage</h1>
           </motion.div>
-          <h2 className="text-2xl font-bold text-white mb-2">Welcome Back</h2>
-          <p className="text-slate-400">Sign in to access your compute dashboard</p>
+          <h2 className="text-2xl font-bold text-slate-900 mb-2">Welcome Back</h2>
+          <p className="text-slate-500">Sign in to access your compute dashboard</p>
         </div>
 
         {/* Login Card */}
@@ -265,20 +260,20 @@ function LoginContent() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-8 shadow-2xl"
+          className="bg-white border border-slate-200 rounded-2xl p-8 shadow-lg"
         >
           {/* Error Message */}
           {(error || oauthError) && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mb-6 p-4 bg-red-500/20 border border-red-500/50 rounded-lg text-red-200 text-sm"
+              className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm"
             >
               {oauthError || error}
               {oauthError && (
                 <button
                   onClick={() => setOauthError(null)}
-                  className="ml-2 text-red-300 hover:text-white underline"
+                  className="ml-2 text-red-700 hover:text-red-900 underline"
                 >
                   Dismiss
                 </button>
@@ -290,21 +285,21 @@ function LoginContent() {
           <div className="space-y-3 mb-6">
             <button
               onClick={() => handleSocialLogin('Google')}
-              className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-white hover:bg-slate-50 text-slate-800 rounded-lg font-medium transition-all shadow-lg hover:shadow-xl"
+              className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-white hover:bg-slate-50 text-slate-800 border border-slate-200 rounded-lg font-medium transition-all shadow-sm hover:shadow-md"
             >
               <Chrome className="w-5 h-5" />
               Continue with Google
             </button>
             <button
               onClick={() => handleSocialLogin('GitHub')}
-              className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-medium transition-all shadow-lg hover:shadow-xl"
+              className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-lg font-medium transition-all shadow-sm hover:shadow-md"
             >
               <Github className="w-5 h-5" />
               Continue with GitHub
             </button>
             <button
               onClick={() => handleSocialLogin('Wallet')}
-              className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white rounded-lg font-medium transition-all shadow-lg hover:shadow-xl"
+              className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-lg font-medium transition-all shadow-sm hover:shadow-md"
             >
               <Wallet className="w-5 h-5" />
               Connect Wallet
@@ -314,10 +309,10 @@ function LoginContent() {
           {/* Divider */}
           <div className="relative mb-6">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-white/20"></div>
+              <div className="w-full border-t border-slate-200"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-4 text-slate-400 bg-transparent">Or continue with email</span>
+              <span className="px-4 text-slate-500 bg-white">Or continue with email</span>
             </div>
           </div>
 
@@ -325,7 +320,7 @@ function LoginContent() {
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Email Input */}
             <div>
-              <label className="block text-sm font-medium text-slate-200 mb-2">
+              <label className="block text-sm font-medium text-slate-700 mb-2">
                 Email Address
               </label>
               <div className="relative">
@@ -335,7 +330,7 @@ function LoginContent() {
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+                  className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:border-transparent transition-all"
                   placeholder="you@example.com"
                 />
               </div>
@@ -343,7 +338,7 @@ function LoginContent() {
 
             {/* Password Input */}
             <div>
-              <label className="block text-sm font-medium text-slate-200 mb-2">
+              <label className="block text-sm font-medium text-slate-700 mb-2">
                 Password
               </label>
               <div className="relative">
@@ -353,13 +348,13 @@ function LoginContent() {
                   required
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className="w-full pl-11 pr-12 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+                  className="w-full pl-11 pr-12 py-3 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:border-transparent transition-all"
                   placeholder="Enter your password"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 transition-colors"
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
@@ -371,11 +366,11 @@ function LoginContent() {
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
                   type="checkbox"
-                  className="w-4 h-4 rounded border-white/20 bg-white/5 text-cyan-500 focus:ring-cyan-500 focus:ring-offset-0"
+                  className="w-4 h-4 rounded border-slate-300 bg-white text-slate-900 focus:ring-slate-400 focus:ring-offset-0"
                 />
-                <span className="text-slate-300">Remember me</span>
+                <span className="text-slate-600">Remember me</span>
               </label>
-              <Link href="/forgot-password" className="text-cyan-400 hover:text-cyan-300 transition-colors">
+              <Link href="/forgot-password" className="text-slate-900 hover:text-slate-700 font-medium transition-colors">
                 Forgot password?
               </Link>
             </div>
@@ -384,7 +379,7 @@ function LoginContent() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white rounded-lg font-semibold transition-all shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-lg font-semibold transition-all shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <>
@@ -401,9 +396,9 @@ function LoginContent() {
           </form>
 
           {/* Security Badge */}
-          <div className="mt-6 pt-6 border-t border-white/10 flex items-center justify-center gap-2 text-sm text-slate-400">
+          <div className="mt-6 pt-6 border-t border-slate-100 flex items-center justify-center gap-2 text-sm text-slate-500">
             <Shield className="w-4 h-4" />
-            <span>Secured by TEE & Zero-Knowledge Proofs</span>
+            <span>Secured by Zero-Knowledge Proofs</span>
           </div>
         </motion.div>
 
@@ -414,9 +409,9 @@ function LoginContent() {
           transition={{ duration: 0.5, delay: 0.5 }}
           className="mt-6 text-center"
         >
-          <p className="text-slate-400">
+          <p className="text-slate-500">
             Don't have an account?{' '}
-            <Link href="/signup" className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors">
+            <Link href="/signup" className="text-slate-900 hover:text-slate-700 font-semibold transition-colors">
               Sign up for free
             </Link>
           </p>
@@ -427,9 +422,9 @@ function LoginContent() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.6 }}
-          className="mt-4 p-4 bg-cyan-500/10 border border-cyan-500/30 rounded-lg text-center"
+          className="mt-4 p-4 bg-slate-100 border border-slate-200 rounded-lg text-center"
         >
-          <p className="text-sm text-cyan-200">
+          <p className="text-sm text-slate-600">
             <strong>Demo Mode:</strong> Use any email and password (6+ characters) to test
           </p>
         </motion.div>
@@ -452,8 +447,8 @@ export default function LoginPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 flex items-center justify-center">
-          <div className="w-8 h-8 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin" />
+        <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+          <div className="w-8 h-8 border-2 border-slate-400 border-t-transparent rounded-full animate-spin" />
         </div>
       }
     >

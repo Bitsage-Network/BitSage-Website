@@ -17,19 +17,19 @@ const stats = [
 const pipeline = [
   {
     step: '01',
-    title: 'Confidential GPU Layer',
-    description: 'TEE-attested H200 GPUs execute model inference in a secure enclave. Model weights never leave the trusted execution environment.',
-    icon: Lock,
-    color: 'cyan',
-    tags: ['H200 GPU', 'TEE Attestation', 'Enclave'],
+    title: 'Mathematical Proof Setup',
+    description: 'Multilinear extensions encode every matrix multiplication as polynomial claims. No hardware trust assumptions — only algebraic commitments.',
+    icon: Terminal,
+    color: 'blue',
+    tags: ['Sumcheck', 'Multilinear Extensions', 'M31 Field'],
   },
   {
     step: '02',
-    title: 'ML Proof Generation',
+    title: 'GPU-Parallel Proving',
     description: 'Sumcheck protocol over the M31 field verifies every matrix multiplication. GPU-parallel round reduction with CUDA kernels at 256 threads per block.',
     icon: Cpu,
     color: 'blue',
-    tags: ['Sumcheck', 'M31 Field', 'CUDA Kernels'],
+    tags: ['CUDA Kernels', '256 Threads/Block', 'Parallel Reduce'],
   },
   {
     step: '03',
@@ -161,28 +161,10 @@ export default function StwoMlPage() {
   }, []);
 
   return (
-    <PublicPageLayout className="bg-slate-950">
+    <PublicPageLayout>
       {/* Hero Section */}
-      <section className="relative min-h-[80vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-cyan-950/20 to-slate-950" />
-          <div className="absolute inset-0 opacity-[0.02]" style={{
-            backgroundImage: `linear-gradient(rgba(6, 182, 212, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.3) 1px, transparent 1px)`,
-            backgroundSize: '60px 60px'
-          }} />
-          <motion.div
-            className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[120px]"
-            animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
-            transition={{ duration: 8, repeat: Infinity }}
-          />
-          <motion.div
-            className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[100px]"
-            animate={{ scale: [1, 1.3, 1], opacity: [0.1, 0.15, 0.1] }}
-            transition={{ duration: 10, repeat: Infinity }}
-          />
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <section className="relative pt-32 pb-24 bg-white overflow-hidden">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -193,34 +175,34 @@ export default function StwoMlPage() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/20 border border-cyan-500/30 mb-8"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[--accent-light] border border-[--accent]/20 mb-8"
             >
-              <Cpu className="w-4 h-4 text-cyan-400" />
-              <span className="text-sm font-semibold text-cyan-300">GPU-ACCELERATED ZKML</span>
+              <Shield className="w-4 h-4 text-[--accent]" />
+              <span className="text-sm font-semibold text-[--accent]">MATHEMATICALLY VERIFIED ML</span>
             </motion.div>
 
             <h1 className="text-5xl md:text-7xl font-bold mb-6">
-              <span className="text-white">STWO-ML</span>
+              <span className="text-slate-900">STWO-ML</span>
               <br />
-              <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent">
-                Verifiable AI Prover
+              <span className="text-[--accent]">
+                Zero-Knowledge Prover
               </span>
             </h1>
 
-            <p className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">
-              Prove any ML model&apos;s inference is correct with GPU-parallelized Circle STARKs.
-              From Qwen3-14B to production models — cryptographic proof in seconds.
+            <p className="text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto mb-10 leading-relaxed">
+              Mathematically verify any ML model&apos;s inference with GPU-parallelized Circle STARKs.
+              No hardware trust required — only algebraic proof, on-chain in seconds.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/docs">
-                <button className="px-8 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-semibold rounded-xl shadow-lg shadow-cyan-500/25 transition-all duration-300 flex items-center justify-center gap-2">
+                <button className="px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-xl shadow-sm transition-all duration-300 flex items-center justify-center gap-2">
                   <Terminal className="w-5 h-5" />
                   View Documentation
                 </button>
               </Link>
               <a href="https://github.com/Bitsage-Network/stwo-ml" target="_blank" rel="noopener noreferrer">
-                <button className="px-8 py-4 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-semibold rounded-xl transition-all duration-300 flex items-center justify-center gap-2">
+                <button className="px-8 py-4 bg-white hover:bg-slate-50 border border-slate-200 text-slate-900 font-semibold rounded-xl transition-all duration-300 flex items-center justify-center gap-2">
                   <GitBranch className="w-5 h-5" />
                   GitHub
                   <ExternalLink className="w-4 h-4" />
@@ -235,15 +217,15 @@ export default function StwoMlPage() {
               className="mt-12 flex flex-wrap items-center justify-center gap-6 text-sm text-slate-500"
             >
               <div className="flex items-center gap-2">
-                <Layers className="w-4 h-4 text-cyan-500" />
+                <Layers className="w-4 h-4 text-[--accent]" />
                 <span>Circle STARKs</span>
               </div>
               <div className="flex items-center gap-2">
-                <Cpu className="w-4 h-4 text-blue-500" />
+                <Cpu className="w-4 h-4 text-[--accent-muted]" />
                 <span>H200 GPU</span>
               </div>
               <div className="flex items-center gap-2">
-                <Shield className="w-4 h-4 text-indigo-500" />
+                <Shield className="w-4 h-4 text-[--accent]" />
                 <span>On-Chain Verified</span>
               </div>
             </motion.div>
@@ -252,7 +234,7 @@ export default function StwoMlPage() {
       </section>
 
       {/* Performance Stats Bar */}
-      <section className="py-12 bg-gradient-to-b from-slate-950 to-slate-900 border-y border-slate-800/50">
+      <section className="py-12 bg-slate-50 border-y border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
             {stats.map((stat, index) => (
@@ -264,12 +246,12 @@ export default function StwoMlPage() {
                 transition={{ delay: index * 0.1 }}
                 className="text-center"
               >
-                <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-cyan-500/10 mb-3">
-                  <stat.icon className="w-5 h-5 text-cyan-400" />
+                <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-[--accent-light] mb-3">
+                  <stat.icon className="w-5 h-5 text-[--accent]" />
                 </div>
-                <div className="text-3xl md:text-4xl font-bold text-white mb-1">{stat.value}</div>
-                <div className="text-sm font-medium text-slate-400">{stat.label}</div>
-                <div className="text-xs text-slate-600">{stat.detail}</div>
+                <div className="text-3xl md:text-4xl font-bold text-slate-900 mb-1">{stat.value}</div>
+                <div className="text-sm font-medium text-slate-500">{stat.label}</div>
+                <div className="text-xs text-slate-400">{stat.detail}</div>
               </motion.div>
             ))}
           </div>
@@ -277,11 +259,7 @@ export default function StwoMlPage() {
       </section>
 
       {/* Architecture Section */}
-      <section id="architecture" className="py-24 bg-slate-900 relative overflow-hidden scroll-mt-20">
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-cyan-500/5 rounded-full blur-3xl" />
-        </div>
-
+      <section id="architecture" className="py-24 bg-white relative overflow-hidden scroll-mt-20">
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -289,16 +267,16 @@ export default function StwoMlPage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/20 border border-cyan-500/30 mb-6">
-              <Activity className="w-4 h-4 text-cyan-400" />
-              <span className="text-sm font-semibold text-cyan-300">ARCHITECTURE</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[--accent-light] border border-[--accent]/20 mb-6">
+              <Activity className="w-4 h-4 text-[--accent]" />
+              <span className="text-sm font-semibold text-[--accent]">ARCHITECTURE</span>
             </div>
 
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
               How It Works
             </h2>
-            <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-              A four-layer pipeline from confidential GPU inference to permanent on-chain proof
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+              A four-stage mathematical pipeline from polynomial encoding to permanent on-chain proof
             </p>
           </motion.div>
 
@@ -312,20 +290,20 @@ export default function StwoMlPage() {
                 transition={{ delay: index * 0.15 }}
                 className="relative group"
               >
-                <div className="h-full p-6 rounded-2xl bg-slate-800/50 border border-slate-700/50 hover:border-cyan-500/50 transition-all duration-300">
-                  <div className="text-4xl font-bold text-cyan-500/20 mb-4">{step.step}</div>
-                  <div className="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center mb-4 group-hover:bg-cyan-500/20 transition-colors">
-                    <step.icon className="w-6 h-6 text-cyan-400" />
+                <div className="h-full p-6 rounded-2xl bg-white border border-slate-200 hover:border-[--accent]/40 transition-all duration-300 shadow-sm">
+                  <div className="text-4xl font-bold text-[--accent]/20 mb-4">{step.step}</div>
+                  <div className="w-12 h-12 rounded-xl bg-[--accent-light] flex items-center justify-center mb-4 group-hover:bg-[--accent]/10 transition-colors">
+                    <step.icon className="w-6 h-6 text-[--accent]" />
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors">
+                  <h3 className="text-lg font-bold text-slate-900 mb-3 group-hover:text-[--accent] transition-colors">
                     {step.title}
                   </h3>
-                  <p className="text-sm text-slate-400 leading-relaxed mb-4">
+                  <p className="text-sm text-slate-500 leading-relaxed mb-4">
                     {step.description}
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {step.tags.map((tag) => (
-                      <span key={tag} className="text-xs px-2 py-1 rounded-full bg-slate-700/50 text-slate-400 border border-slate-600/50">
+                      <span key={tag} className="text-xs px-2 py-1 rounded-full bg-slate-100 text-slate-500 border border-slate-200">
                         {tag}
                       </span>
                     ))}
@@ -334,7 +312,7 @@ export default function StwoMlPage() {
 
                 {index < pipeline.length - 1 && (
                   <div className="hidden lg:flex absolute top-1/2 -right-3 z-10 w-6 h-6 items-center justify-center">
-                    <ChevronRight className="w-4 h-4 text-cyan-500/40" />
+                    <ChevronRight className="w-4 h-4 text-slate-300" />
                   </div>
                 )}
               </motion.div>
@@ -344,7 +322,7 @@ export default function StwoMlPage() {
       </section>
 
       {/* Technical Deep Dive */}
-      <section className="py-24 bg-slate-950 relative">
+      <section className="py-24 bg-slate-50 relative">
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -352,10 +330,10 @@ export default function StwoMlPage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
               Technical Deep Dive
             </h2>
-            <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
               Circle STARKs, GPU kernels, and tiled proving at production scale
             </p>
           </motion.div>
@@ -369,23 +347,23 @@ export default function StwoMlPage() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <div className="h-full p-8 rounded-2xl bg-slate-800/50 border border-slate-700/50 hover:border-blue-500/50 transition-all duration-300 group">
+                <div className="h-full p-8 rounded-2xl bg-white border border-slate-200 hover:border-[--accent]/40 transition-all duration-300 group shadow-sm">
                   <div className="flex items-start gap-4 mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-500/20 transition-colors">
-                      <card.icon className="w-6 h-6 text-blue-400" />
+                    <div className="w-12 h-12 rounded-xl bg-[--accent-light] flex items-center justify-center flex-shrink-0 group-hover:bg-[--accent]/10 transition-colors">
+                      <card.icon className="w-6 h-6 text-[--accent]" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-white group-hover:text-blue-300 transition-colors">
+                      <h3 className="text-xl font-bold text-slate-900 group-hover:text-[--accent] transition-colors">
                         {card.title}
                       </h3>
                     </div>
                   </div>
 
-                  <p className="text-slate-400 leading-relaxed mb-5">
+                  <p className="text-slate-500 leading-relaxed mb-5">
                     {card.description}
                   </p>
 
-                  <div className="rounded-lg bg-slate-900/80 border border-slate-700/50 p-4 font-mono text-sm text-cyan-300 whitespace-pre-line">
+                  <div className="rounded-lg bg-slate-900 border border-slate-800 p-4 font-mono text-sm text-cyan-300 whitespace-pre-line">
                     {card.code}
                   </div>
                 </div>
@@ -398,17 +376,17 @@ export default function StwoMlPage() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mt-12 p-8 rounded-2xl bg-slate-800/30 border border-slate-700/50"
+            className="mt-12 p-8 rounded-2xl bg-white border border-slate-200 shadow-sm"
           >
-            <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-              <Cpu className="w-5 h-5 text-cyan-400" />
+            <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+              <Cpu className="w-5 h-5 text-[--accent]" />
               Supported Operations
             </h3>
             <div className="flex flex-wrap gap-3">
               {supportedOps.map((op) => (
                 <span
                   key={op}
-                  className="px-4 py-2 rounded-lg bg-slate-700/50 text-slate-300 border border-slate-600/50 font-mono text-sm hover:border-cyan-500/50 hover:text-cyan-300 transition-colors"
+                  className="px-4 py-2 rounded-lg bg-slate-50 text-slate-600 border border-slate-200 font-mono text-sm hover:border-[--accent]/40 hover:text-[--accent] transition-colors"
                 >
                   {op}
                 </span>
@@ -418,8 +396,8 @@ export default function StwoMlPage() {
         </div>
       </section>
 
-      {/* Live Pipeline Demo */}
-      <section className="py-24 bg-gradient-to-b from-slate-950 to-slate-900 relative overflow-hidden">
+      {/* Live Pipeline Demo — keep dark for data display */}
+      <section className="py-24 bg-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -427,22 +405,22 @@ export default function StwoMlPage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/20 border border-cyan-500/30 mb-6">
-              <Activity className="w-4 h-4 text-cyan-400" />
-              <span className="text-sm font-semibold text-cyan-300">LIVE DEMO</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[--accent-light] border border-[--accent]/20 mb-6">
+              <Activity className="w-4 h-4 text-[--accent]" />
+              <span className="text-sm font-semibold text-[--accent]">LIVE DEMO</span>
             </div>
 
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
               Proving Pipeline
             </h2>
-            <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
               Watch a 14-billion parameter model go from inference to on-chain verification
             </p>
           </motion.div>
 
           <div className="max-w-4xl mx-auto">
-            {/* Pipeline visualization */}
-            <div className="bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden">
+            {/* Pipeline visualization — dark card for data display */}
+            <div className="bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden">
               {/* Header */}
               <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800">
                 <div className="flex items-center gap-3">
@@ -496,7 +474,7 @@ export default function StwoMlPage() {
                             initial={{ width: 0 }}
                             animate={{ width: '100%' }}
                             transition={{ duration: 2.5, ease: 'linear' }}
-                            className="h-1 mt-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500"
+                            className="h-1 mt-2 rounded-full bg-cyan-500"
                           />
                         )}
                       </div>
@@ -527,7 +505,7 @@ export default function StwoMlPage() {
       </section>
 
       {/* Competitive Comparison */}
-      <section className="py-24 bg-slate-950 relative">
+      <section className="py-24 bg-slate-50 relative">
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -535,10 +513,10 @@ export default function StwoMlPage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
               How We Compare
             </h2>
-            <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
               The only ZKML prover with GPU acceleration, recursive proofs, and on-chain verification
             </p>
           </motion.div>
@@ -548,53 +526,53 @@ export default function StwoMlPage() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="hidden md:block overflow-hidden rounded-2xl border border-slate-800"
+            className="hidden md:block overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
           >
             <table className="w-full">
               <thead>
-                <tr className="bg-slate-800/50">
-                  <th className="text-left px-6 py-4 text-sm font-semibold text-slate-400">Prover</th>
-                  <th className="text-center px-6 py-4 text-sm font-semibold text-slate-400">GPU Support</th>
-                  <th className="text-center px-6 py-4 text-sm font-semibold text-slate-400">Model Size</th>
-                  <th className="text-center px-6 py-4 text-sm font-semibold text-slate-400">Proving Time</th>
-                  <th className="text-center px-6 py-4 text-sm font-semibold text-slate-400">On-Chain Verify</th>
-                  <th className="text-center px-6 py-4 text-sm font-semibold text-slate-400">Recursive Proofs</th>
-                  <th className="text-center px-6 py-4 text-sm font-semibold text-slate-400">Open Source</th>
+                <tr className="bg-slate-50">
+                  <th className="text-left px-6 py-4 text-sm font-semibold text-slate-500">Prover</th>
+                  <th className="text-center px-6 py-4 text-sm font-semibold text-slate-500">GPU Support</th>
+                  <th className="text-center px-6 py-4 text-sm font-semibold text-slate-500">Model Size</th>
+                  <th className="text-center px-6 py-4 text-sm font-semibold text-slate-500">Proving Time</th>
+                  <th className="text-center px-6 py-4 text-sm font-semibold text-slate-500">On-Chain Verify</th>
+                  <th className="text-center px-6 py-4 text-sm font-semibold text-slate-500">Recursive Proofs</th>
+                  <th className="text-center px-6 py-4 text-sm font-semibold text-slate-500">Open Source</th>
                 </tr>
               </thead>
               <tbody>
                 {competitors.map((comp) => (
                   <tr
                     key={comp.name}
-                    className={`border-t border-slate-800 ${comp.highlight ? 'bg-cyan-500/5' : 'bg-slate-900/30'}`}
+                    className={`border-t border-slate-200 ${comp.highlight ? 'bg-[--accent-light]' : 'bg-white'}`}
                   >
                     <td className="px-6 py-4">
-                      <span className={`font-semibold ${comp.highlight ? 'text-cyan-300' : 'text-white'}`}>
+                      <span className={`font-semibold ${comp.highlight ? 'text-[--accent]' : 'text-slate-900'}`}>
                         {comp.name}
                       </span>
                       {comp.highlight && (
-                        <span className="ml-2 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400">
+                        <span className="ml-2 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-[--accent]/10 text-[--accent]">
                           OURS
                         </span>
                       )}
                     </td>
                     <td className="text-center px-6 py-4">
-                      {comp.gpu ? <CheckCircle2 className="w-5 h-5 text-emerald-400 mx-auto" /> : <span className="text-slate-600">—</span>}
+                      {comp.gpu ? <CheckCircle2 className="w-5 h-5 text-emerald-500 mx-auto" /> : <span className="text-slate-300">—</span>}
                     </td>
-                    <td className="text-center px-6 py-4 text-sm text-slate-300">{comp.modelSize}</td>
+                    <td className="text-center px-6 py-4 text-sm text-slate-600">{comp.modelSize}</td>
                     <td className="text-center px-6 py-4">
-                      <span className={`font-mono text-sm ${comp.highlight ? 'text-cyan-300' : 'text-slate-400'}`}>
+                      <span className={`font-mono text-sm ${comp.highlight ? 'text-[--accent]' : 'text-slate-500'}`}>
                         {comp.provingTime}
                       </span>
                     </td>
                     <td className="text-center px-6 py-4">
-                      {comp.onChainVerify ? <CheckCircle2 className="w-5 h-5 text-emerald-400 mx-auto" /> : <span className="text-slate-600">—</span>}
+                      {comp.onChainVerify ? <CheckCircle2 className="w-5 h-5 text-emerald-500 mx-auto" /> : <span className="text-slate-300">—</span>}
                     </td>
                     <td className="text-center px-6 py-4">
-                      {comp.recursiveProofs ? <CheckCircle2 className="w-5 h-5 text-emerald-400 mx-auto" /> : <span className="text-slate-600">—</span>}
+                      {comp.recursiveProofs ? <CheckCircle2 className="w-5 h-5 text-emerald-500 mx-auto" /> : <span className="text-slate-300">—</span>}
                     </td>
                     <td className="text-center px-6 py-4">
-                      {comp.openSource ? <CheckCircle2 className="w-5 h-5 text-emerald-400 mx-auto" /> : <span className="text-slate-600">—</span>}
+                      {comp.openSource ? <CheckCircle2 className="w-5 h-5 text-emerald-500 mx-auto" /> : <span className="text-slate-300">—</span>}
                     </td>
                   </tr>
                 ))}
@@ -611,23 +589,23 @@ export default function StwoMlPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className={`p-5 rounded-xl border ${comp.highlight ? 'bg-cyan-500/5 border-cyan-500/30' : 'bg-slate-800/30 border-slate-700/50'}`}
+                className={`p-5 rounded-xl border ${comp.highlight ? 'bg-[--accent-light] border-[--accent]/30' : 'bg-white border-slate-200'}`}
               >
                 <div className="flex items-center gap-2 mb-3">
-                  <span className={`font-bold ${comp.highlight ? 'text-cyan-300' : 'text-white'}`}>{comp.name}</span>
-                  {comp.highlight && <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400">OURS</span>}
+                  <span className={`font-bold ${comp.highlight ? 'text-[--accent]' : 'text-slate-900'}`}>{comp.name}</span>
+                  {comp.highlight && <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-[--accent]/10 text-[--accent]">OURS</span>}
                 </div>
                 <div className="grid grid-cols-2 gap-2 text-sm">
-                  <div className="text-slate-500">GPU</div>
-                  <div className="text-slate-300">{comp.gpu ? 'Yes' : 'No'}</div>
-                  <div className="text-slate-500">Model Size</div>
-                  <div className="text-slate-300">{comp.modelSize}</div>
-                  <div className="text-slate-500">Proving Time</div>
-                  <div className="text-slate-300 font-mono">{comp.provingTime}</div>
-                  <div className="text-slate-500">On-Chain</div>
-                  <div className="text-slate-300">{comp.onChainVerify ? 'Yes' : 'No'}</div>
-                  <div className="text-slate-500">Recursive</div>
-                  <div className="text-slate-300">{comp.recursiveProofs ? 'Yes' : 'No'}</div>
+                  <div className="text-slate-400">GPU</div>
+                  <div className="text-slate-600">{comp.gpu ? 'Yes' : 'No'}</div>
+                  <div className="text-slate-400">Model Size</div>
+                  <div className="text-slate-600">{comp.modelSize}</div>
+                  <div className="text-slate-400">Proving Time</div>
+                  <div className="text-slate-600 font-mono">{comp.provingTime}</div>
+                  <div className="text-slate-400">On-Chain</div>
+                  <div className="text-slate-600">{comp.onChainVerify ? 'Yes' : 'No'}</div>
+                  <div className="text-slate-400">Recursive</div>
+                  <div className="text-slate-600">{comp.recursiveProofs ? 'Yes' : 'No'}</div>
                 </div>
               </motion.div>
             ))}
@@ -636,7 +614,7 @@ export default function StwoMlPage() {
       </section>
 
       {/* Deployed Contracts */}
-      <section id="contracts" className="py-24 bg-slate-900 relative scroll-mt-20">
+      <section id="contracts" className="py-24 bg-white relative scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -644,15 +622,15 @@ export default function StwoMlPage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/20 border border-indigo-500/30 mb-6">
-              <Shield className="w-4 h-4 text-indigo-400" />
-              <span className="text-sm font-semibold text-indigo-300">ON-CHAIN</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[--accent-light] border border-[--accent]/20 mb-6">
+              <Shield className="w-4 h-4 text-[--accent]" />
+              <span className="text-sm font-semibold text-[--accent]">ON-CHAIN</span>
             </div>
 
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
               Deployed on Starknet
             </h2>
-            <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
               Live verification contracts on Starknet Sepolia — inspect and verify proofs on-chain
             </p>
           </motion.div>
@@ -666,19 +644,19 @@ export default function StwoMlPage() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <div className="h-full p-6 rounded-2xl bg-slate-800/50 border border-slate-700/50 hover:border-indigo-500/50 transition-all duration-300 group">
-                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-indigo-300 transition-colors">
+                <div className="h-full p-6 rounded-2xl bg-white border border-slate-200 hover:border-[--accent]/40 transition-all duration-300 group shadow-sm">
+                  <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-[--accent] transition-colors">
                     {contract.name}
                   </h3>
-                  <p className="text-sm text-slate-400 mb-4">{contract.description}</p>
-                  <div className="font-mono text-xs text-slate-500 bg-slate-900/50 rounded-lg p-3 mb-4 break-all">
+                  <p className="text-sm text-slate-500 mb-4">{contract.description}</p>
+                  <div className="font-mono text-xs text-slate-400 bg-slate-900 rounded-lg p-3 mb-4 break-all text-slate-400">
                     {contract.address}
                   </div>
                   <a
                     href={`https://sepolia.starkscan.co/contract/${contract.address}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm text-indigo-400 hover:text-indigo-300 transition-colors"
+                    className="inline-flex items-center gap-2 text-sm text-[--accent] hover:text-[--accent-hover] transition-colors"
                   >
                     View on Starkscan
                     <ExternalLink className="w-3 h-3" />
@@ -691,35 +669,35 @@ export default function StwoMlPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-b from-slate-900 to-cyan-950/20 relative">
+      <section className="py-24 bg-slate-50 relative">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/20 border border-cyan-500/30 mb-6">
-              <Zap className="w-4 h-4 text-cyan-400" />
-              <span className="text-sm font-semibold text-cyan-300">GET STARTED</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[--accent-light] border border-[--accent]/20 mb-6">
+              <Zap className="w-4 h-4 text-[--accent]" />
+              <span className="text-sm font-semibold text-[--accent]">GET STARTED</span>
             </div>
 
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
               Prove Your AI
             </h2>
-            <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto">
-              Cryptographic proof that your model computed correctly — from inference to on-chain settlement.
+            <p className="text-xl text-slate-600 mb-10 max-w-2xl mx-auto">
+              Mathematical proof that your model computed correctly — from polynomial commitment to on-chain settlement.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/docs">
-                <button className="px-8 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-semibold rounded-xl shadow-lg shadow-cyan-500/25 transition-all flex items-center justify-center gap-2">
+                <button className="px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-xl shadow-sm transition-all flex items-center justify-center gap-2">
                   <Terminal className="w-5 h-5" />
                   Read the Docs
                   <ArrowRight className="w-5 h-5" />
                 </button>
               </Link>
               <Link href="/obelysk">
-                <button className="px-8 py-4 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-semibold rounded-xl transition-all flex items-center justify-center gap-2">
+                <button className="px-8 py-4 bg-white hover:bg-slate-50 border border-slate-200 text-slate-900 font-semibold rounded-xl transition-all flex items-center justify-center gap-2">
                   <Server className="w-5 h-5" />
                   Obelysk Protocol
                 </button>
