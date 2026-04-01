@@ -24,7 +24,7 @@ export function Footer() {
                 <span className="text-2xl font-bold text-white">BitSage</span>
               </div>
               <p className="text-slate-400 text-base leading-relaxed max-w-md">
-                The GPU cloud with hardware-level security. Every computation encrypted, every result verifiable on-chain.
+                The privacy cloud for AI. Every computation encrypted, every result ZK-verified on-chain.
               </p>
 
               {/* Contact Info */}

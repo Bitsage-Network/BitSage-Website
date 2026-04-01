@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://bitsage.network'),
   title: "BitSage | Verifiable GPU Cloud",
-  description: "Run AI on GPUs you can verify. Hardware-secured compute with TEE enclaves, cryptographic proofs, and enterprise-grade privacy.",
-  keywords: ["GPU compute", "verifiable AI", "TEE", "confidential computing", "GPU cloud", "AI inference", "zero knowledge proofs"],
+  description: "The privacy cloud for AI. GPU compute with zero-knowledge verification -- every result mathematically proven correct. Private execution, provable output.",
+  keywords: ["GPU compute", "verifiable AI", "zero knowledge proofs", "ZK verified", "GPU cloud", "AI inference", "confidential computing", "STARK proofs"],
   authors: [{ name: "BitSage Network" }],
   icons: {
     icon: [

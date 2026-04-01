@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Shield, Lock, Zap, ArrowRight } from 'lucide-react';
+import { Shield, Lock, Zap, ArrowRight, CheckCircle } from 'lucide-react';
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -62,7 +62,7 @@ export function HeroRevamped() {
             transition={{ delay: 0.15, duration: 0.35 }}
             className="mt-4 text-base sm:text-[1.0625rem] text-slate-500 max-w-[420px] leading-relaxed"
           >
-            Privacy-first GPU compute where every workload runs in TEE enclaves and every result is cryptographically proven on-chain. Your data never leaves the enclave.
+            GPU compute with zero-knowledge verification. Every result is mathematically proven correct -- no hardware trust required. Private execution, provable output.
           </motion.p>
 
           {/* Feature pills */}
@@ -73,8 +73,8 @@ export function HeroRevamped() {
             className="mt-5 flex flex-wrap items-center justify-center lg:justify-start gap-2"
           >
             {[
-              { icon: Lock, label: 'TEE Enclaves' },
-              { icon: Shield, label: 'SOC2 Type II' },
+              { icon: CheckCircle, label: 'ZK-Verified Results' },
+              { icon: Lock, label: 'Encrypted Execution' },
               { icon: Zap, label: 'Sub-Minute Starts' },
             ].map((item, i) => (
               <div

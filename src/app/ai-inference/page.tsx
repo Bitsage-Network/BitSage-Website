@@ -13,7 +13,7 @@ const capabilities = [
   { icon: Zap, title: 'Ultra-Low Latency', description: 'Sub-100ms inference times with edge-optimized routing.', stat: '<100ms', statLabel: 'P99 Latency' },
   { icon: TrendingUp, title: 'Auto-Scaling', description: 'Scale from zero to thousands of requests automatically.', stat: '10,000+', statLabel: 'RPS Capacity' },
   { icon: Globe, title: 'Global Edge', description: 'Deploy models close to your users worldwide.', stat: '12', statLabel: 'Edge Regions' },
-  { icon: Shield, title: 'Private Inference', description: 'TEE-enabled inference for sensitive data.', stat: '100%', statLabel: 'Data Privacy' },
+  { icon: Shield, title: 'Private Inference', description: 'Encrypted execution with ZK-verified results for sensitive data.', stat: '100%', statLabel: 'Data Privacy' },
 ];
 
 const modelTypes = [
@@ -216,7 +216,7 @@ print(response.text)`}
             {[
               { tier: 'Starter', price: 'Free', desc: '1M tokens/month', features: ['Community models', 'Shared GPUs', 'Best-effort latency'] },
               { tier: 'Pro', price: '$0.50', desc: 'per 1M tokens', features: ['All models', 'Dedicated GPUs', 'Low latency SLA'], popular: true },
-              { tier: 'Enterprise', price: 'Custom', desc: 'volume pricing', features: ['Private deployment', 'TEE inference', 'Custom SLAs'] },
+              { tier: 'Enterprise', price: 'Custom', desc: 'volume pricing', features: ['Private deployment', 'ZK-verified inference', 'Custom SLAs'] },
             ].map((plan) => (
               <div
                 key={plan.tier}

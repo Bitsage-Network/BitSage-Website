@@ -12,7 +12,7 @@ const features = [
   { icon: GitBranch, title: 'Workflow Orchestration', description: 'Chain together LLMs, tools, APIs, and custom logic into automated pipelines.' },
   { icon: Brain, title: 'Model Agnostic', description: 'Use GPT-4, Claude, Llama, or any model. Switch providers without changing your workflows.' },
   { icon: Layers, title: 'Memory & Context', description: 'Agents maintain context across sessions with built-in vector storage and retrieval.' },
-  { icon: Shield, title: 'Privacy-First', description: 'Run on BitSage confidential compute. Your data and prompts never leave secure enclaves.' },
+  { icon: Shield, title: 'Privacy-First', description: 'Run on BitSage confidential compute. Your data and prompts stay private with encrypted execution.' },
   { icon: Lock, title: 'Enterprise Security', description: 'SOC2 compliant infrastructure with audit logs and access controls.' },
 ];
 
@@ -183,7 +183,7 @@ export default function OpenClawPage() {
                   'Prompts encrypted end-to-end',
                   'Agent memory stored privately',
                   'Tool outputs never logged',
-                  'Run in TEE secure enclaves',
+                  'Encrypted execution environment',
                   'Zero data retention option',
                 ].map((item) => (
                   <div key={item} className="flex items-center gap-3">
