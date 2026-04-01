@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   FlaskConical, Cpu, ArrowRight, CheckCircle, Shield, Globe,
   Atom, BarChart3, Bell, Mail, Server, Clock,
@@ -68,6 +68,10 @@ const integrations = [
 export default function ResearchLabsPage() {
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
+
+  useEffect(() => {
+    document.title = 'Research Labs - BitSage Network';
+  }, []);
 
   const handleNotifyMe = async (e: React.FormEvent) => {
     e.preventDefault();

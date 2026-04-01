@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Zap, Cpu, ArrowRight, CheckCircle, Shield, Globe,
   Brain, Mail, Code2, Lock, TrendingUp, Activity, Network
@@ -31,6 +31,10 @@ const features = [
 export default function AIInferencePage() {
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
+
+  useEffect(() => {
+    document.title = 'AI Inference - BitSage Network';
+  }, []);
 
   const handleNotifyMe = async (e: React.FormEvent) => {
     e.preventDefault();

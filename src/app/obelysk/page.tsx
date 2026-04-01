@@ -94,6 +94,10 @@ export default function ObelyskPage() {
   const [orderbook, setOrderbook] = useState(initialOrderbook);
   const [selectedPair, setSelectedPair] = useState('BTC/USDC');
 
+  useEffect(() => {
+    document.title = 'Obelysk Protocol - BitSage Network';
+  }, []);
+
   // Simulate orderbook updates (only on client after mount)
   useEffect(() => {
     // Start random updates only after hydration

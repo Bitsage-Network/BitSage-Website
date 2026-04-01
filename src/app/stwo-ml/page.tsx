@@ -154,6 +154,10 @@ export default function StwoMlPage() {
   const [activeStep, setActiveStep] = useState(0);
 
   useEffect(() => {
+    document.title = 'STWO-ML Prover - BitSage Network';
+  }, []);
+
+  useEffect(() => {
     const interval = setInterval(() => {
       setActiveStep((prev) => (prev + 1) % demoSteps.length);
     }, 2500);

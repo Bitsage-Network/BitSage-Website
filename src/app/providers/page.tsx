@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Server, Shield, Zap, ArrowRight, CheckCircle, Cpu, TrendingUp,
   DollarSign, Clock, Globe, Lock, Users, Wallet, Calculator,
@@ -44,6 +44,10 @@ const benefits = [
 export default function ProvidersPage() {
   const [selectedGpu, setSelectedGpu] = useState(gpuOptions[2]);
   const [gpuCount, setGpuCount] = useState(1);
+
+  useEffect(() => {
+    document.title = 'Become a Provider - BitSage Network';
+  }, []);
 
   const monthlyLow = selectedGpu.dailyLow * 30 * gpuCount;
   const monthlyHigh = selectedGpu.dailyHigh * 30 * gpuCount;

@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Layers, ArrowRight, CheckCircle, Shield,
   Film, Brain, FlaskConical, Lock, BarChart3, Mail,
@@ -31,6 +31,10 @@ const pricingTiers = [
 export default function BatchComputePage() {
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
+
+  useEffect(() => {
+    document.title = 'Batch Compute - BitSage Network';
+  }, []);
 
   const handleNotifyMe = async (e: React.FormEvent) => {
     e.preventDefault();

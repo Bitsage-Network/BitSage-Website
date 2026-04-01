@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Company - BitSage Network',
-  description: 'Learn about BitSage Network, our mission, team, partnerships, and career opportunities.',
+  description: 'Learn about BitSage Network, our mission, team, and partnerships.',
 };
 
 export default function CompanyPage() {
@@ -135,84 +135,6 @@ export default function CompanyPage() {
                 <li>• Leading research institutions</li>
                 <li>• Innovative startups and scale-ups</li>
               </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Careers */}
-      <section className="py-24 bg-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Join Our Team</h2>
-            <p className="text-lg text-slate-600">Help us build the future of verifiable computing</p>
-          </div>
-          
-          <div className="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
-            <div className="p-8">
-              <h3 className="text-xl font-semibold text-slate-900 mb-6">Open Positions</h3>
-              <div className="space-y-4">
-                <div className="flex items-center justify-between p-4 border border-slate-200 rounded-lg">
-                  <div>
-                    <h4 className="font-medium text-slate-900">Co-Founder / Business Lead</h4>
-                    <p className="text-sm text-slate-600">Leadership • Equity • Remote/SF</p>
-                  </div>
-                  <Link 
-                    href="/careers/co-founder-business-lead"
-                    className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-                  >
-                    View Details
-                  </Link>
-                </div>
-                <div className="flex items-center justify-between p-4 border border-slate-200 rounded-lg">
-                  <div>
-                    <h4 className="font-medium text-slate-900">Senior Backend Engineer</h4>
-                    <p className="text-sm text-slate-600">Distributed Systems • Remote/SF</p>
-                  </div>
-                  <Link 
-                    href="/careers/senior-backend-engineer"
-                    className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-                  >
-                    View Details
-                  </Link>
-                </div>
-                <div className="flex items-center justify-between p-4 border border-slate-200 rounded-lg">
-                  <div>
-                    <h4 className="font-medium text-slate-900">DevOps Engineer</h4>
-                    <p className="text-sm text-slate-600">Infrastructure • Remote/NYC</p>
-                  </div>
-                  <Link 
-                    href="/careers/devops-engineer"
-                    className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-                  >
-                    View Details
-                  </Link>
-                </div>
-                <div className="flex items-center justify-between p-4 border border-slate-200 rounded-lg">
-                  <div>
-                    <h4 className="font-medium text-slate-900">Frontend Engineer</h4>
-                    <p className="text-sm text-slate-600">React/TypeScript • Remote/SF</p>
-                  </div>
-                  <Link 
-                    href="/careers/frontend-engineer"
-                    className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-                  >
-                    View Details
-                  </Link>
-                </div>
-                <div className="flex items-center justify-between p-4 border border-slate-200 rounded-lg">
-                  <div>
-                    <h4 className="font-medium text-slate-900">Marketing Manager</h4>
-                    <p className="text-sm text-slate-600">Growth Marketing • Remote/SF</p>
-                  </div>
-                  <Link 
-                    href="/careers/marketing-manager"
-                    className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-                  >
-                    View Details
-                  </Link>
-                </div>
-              </div>
             </div>
           </div>
         </div>

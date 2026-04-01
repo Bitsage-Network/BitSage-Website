@@ -2,11 +2,13 @@
 // Supports multiple form submission services
 
 export interface WaitlistFormData {
-  firstName: string;
-  lastName: string;
   email: string;
-  company: string;
-  jobTitle: string;
+  company?: string;
+  userType: 'user' | 'provider';
+  // Legacy fields (kept for backward compatibility with existing form submissions)
+  firstName?: string;
+  lastName?: string;
+  jobTitle?: string;
   phone?: string;
   companySize?: string;
   useCase?: string;
@@ -16,7 +18,6 @@ export interface WaitlistFormData {
   uptime?: string;
   experience?: string;
   additionalInfo?: string;
-  userType: 'user' | 'provider';
 }
 
 export interface NewsletterFormData {

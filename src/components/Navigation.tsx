@@ -85,6 +85,7 @@ const menuItems = [
     label: 'Docs',
     dropdown: [
       { label: 'Documentation', href: '/docs', icon: BookOpen },
+      { label: 'Pricing', href: '/pricing', icon: Zap },
       { label: 'Whitepaper', href: '/manifesto', icon: FileText },
       { label: 'Blog', href: '/blog', icon: FileText },
     ],

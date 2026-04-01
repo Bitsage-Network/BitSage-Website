@@ -133,21 +133,18 @@ export function Footer() {
             </div>
 
             <div className="flex flex-wrap items-center gap-6 text-sm">
-              <Link href="/coming-soon" className="text-slate-400 hover:text-white transition-colors">
-                Privacy Policy
-              </Link>
-              <Link href="/coming-soon" className="text-slate-400 hover:text-white transition-colors">
-                Terms of Service
-              </Link>
-              <Link href="/coming-soon" className="text-slate-400 hover:text-white transition-colors">
-                Security
-              </Link>
+              <span className="text-slate-600 cursor-default" title="Coming soon">Privacy Policy</span>
+              <span className="text-slate-600 cursor-default" title="Coming soon">Terms of Service</span>
+              <span className="text-slate-600 cursor-default" title="Coming soon">Security</span>
               <Link
-                href="/coming-soon"
+                href="/network"
                 className="text-slate-400 hover:text-white transition-colors flex items-center gap-1"
               >
                 Status
                 <div className="w-2 h-2 bg-emerald-400 rounded-full"></div>
+              </Link>
+              <Link href="/pricing" className="text-slate-400 hover:text-white transition-colors">
+                Pricing
               </Link>
             </div>
           </div>

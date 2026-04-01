@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { Zap, ArrowRight, GitBranch, Bot, Shield, Lock, Cpu, Brain, Layers, CheckCircle } from 'lucide-react';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import RequestDemoModal from '@/components/RequestDemoModal';
 import { PublicPageLayout } from '@/components/PublicPageLayout';
 
@@ -25,6 +25,10 @@ const useCases = [
 
 export default function OpenClawPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    document.title = 'OpenClaw - BitSage Network';
+  }, []);
 
   return (
     <PublicPageLayout>

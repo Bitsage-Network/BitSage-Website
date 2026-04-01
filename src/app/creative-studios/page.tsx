@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Film, ArrowRight, CheckCircle, Globe,
   Palette, Mail, Layers, Code2,
@@ -36,6 +36,10 @@ const supportedSoftware = [
 export default function CreativeStudiosPage() {
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
+
+  useEffect(() => {
+    document.title = 'Creative Studios - BitSage Network';
+  }, []);
 
   const handleNotifyMe = async (e: React.FormEvent) => {
     e.preventDefault();

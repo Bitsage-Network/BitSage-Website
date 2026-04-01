@@ -83,7 +83,7 @@ const blogPosts = [
       <p>BitSage makes verifiable compute real. Not someday. <strong>Now.</strong></p>
     `,
     author: 'BitSage Engineering Team',
-    publishedAt: '2024-01-20',
+    publishedAt: '2026-03-15',
     readTime: '7 min read',
     category: 'Technical',
     tags: ['verification', 'zero-knowledge', 'proof-of-compute', 'hybrid-proofs'],
@@ -151,7 +151,7 @@ const blogPosts = [
       <p>The future of computing is verifiable, distributed, and open. Welcome to BitSage Network.</p>
     `,
     author: 'BitSage Team',
-    publishedAt: '2024-01-15',
+    publishedAt: '2026-02-15',
     readTime: '5 min read',
     category: 'Company News',
     tags: ['announcement', 'verifiable-computing', 'launch'],
@@ -259,7 +259,7 @@ const blogPosts = [
       <p>BitSage Network is at the forefront of this revolution, building the infrastructure that will make verifiable computing accessible to everyone. By combining the power of distributed systems with the trust of cryptographic proofs, we're creating a new paradigm for secure, scalable computation.</p>
     `,
     author: 'Dr. Sarah Chen',
-    publishedAt: '2024-01-10',
+    publishedAt: '2026-01-15',
     readTime: '8 min read',
     category: 'Technical',
     tags: ['zero-knowledge', 'cryptography', 'technical'],
